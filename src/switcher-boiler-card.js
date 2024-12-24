@@ -78,7 +78,7 @@ class SwitcherBoilerCard extends LitElement {
     const powerButtonClass = isOn ? "button power on" : "button power off";
 
     const isDark = this.isDarkTheme();
-    const combinedButtonGroupClass = isDark ? "combined-buttons dark-theme" : "combined-buttons light-theme";
+    const buttonClass = isDark ? "button dark-theme" : "button light-theme";
 
     return html`
       <ha-card class="card" id="card">
@@ -97,14 +97,12 @@ class SwitcherBoilerCard extends LitElement {
               <button class="${powerButtonClass}" @click="${this._toggleBoiler}">
                 <ha-icon icon="mdi:power" class="button_icon power"></ha-icon>
               </button>
-              <div class="${combinedButtonGroupClass}">
-                <button class="button timer" @click=${this._turnOnBoilerWithTimer}>
-                  <ha-icon icon="mdi:timer-outline" class="button_icon timer"></ha-icon>
-                </button>
-                <button class="button timer_time" @click=${this._cycleTimerValue}>
-                  ${this.timerValue}
-                </button>
-              </div>
+              <button class="${buttonClass} timer" @click=${this._turnOnBoilerWithTimer}>
+                <ha-icon icon="mdi:timer-outline" class="button_icon timer"></ha-icon>
+              </button>
+              <button class="${buttonClass} timer_time" @click=${this._cycleTimerValue}>
+                ${this.timerValue}
+              </button>
             </div>
           </div>
         </div>      
@@ -163,12 +161,12 @@ class SwitcherBoilerCard extends LitElement {
 
     .button {
       height: var(--feature-height, 42px);
-      background-color: #eeeeee;
+      //background-color: #eeeeee;
       cursor: pointer;
       //transition: background-color 180ms ease-in-out;
       text-align: center;
-      flex: 0.6;
-      -webkit-flex: 0.6;
+      flex: 1;
+      -webkit-flex: 1;
       border: none;
       border-radius: var(--feature-border-radius, 12px);
       //pointer-events: none;
@@ -198,11 +196,11 @@ class SwitcherBoilerCard extends LitElement {
       //overflow: hidden;
     }
 
-    .combined-buttons.dark-theme {
+    .button.dark-theme {
       background-color: rgba(70,70,70,0.2);
     }
 
-    .combined-buttons.light-theme {
+    .button.light-theme {
       background-color: rgba(189,189,189,0.2);
     }    
 
