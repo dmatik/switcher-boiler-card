@@ -9,11 +9,13 @@ class SwitcherBoilerCard extends LitElement {
   static properties = {
     hass: {},
     config: {},
+    timerValue: { type: Number },
   };
   
   constructor() {
     super();
     this.hasError = false;
+    this.timerValue = 15;
   }
 
   static getConfigElement() {
@@ -73,10 +75,15 @@ class SwitcherBoilerCard extends LitElement {
       displayState = this.hass.localize(`component.switch.entity_component._.state.off`) || "off";
     }
 
+    const powerButtonClass = isOn ? "button power on" : "button power off";
+
+    const isDark = this.isDarkTheme();
+    const combinedButtonGroupClass = isDark ? "combined-buttons dark-theme" : "combined-buttons light-theme";
+
     return html`
-      <ha-card class="card" id="card" @click="${this._showMoreInfo}">
+      <ha-card class="card" id="card">
         <div class="container">
-          <div class="content">
+          <div class="content" @click="${this._showMoreInfo}">
             <div class="${iconContainerClass}" id="icon-container">
               <ha-icon icon="${displayIcon}" class="${iconClass}" id="icon"></ha-icon>
             </div>
@@ -87,10 +94,18 @@ class SwitcherBoilerCard extends LitElement {
           </div>
           <div class="controls">
             <div class="buttons-group">
-              <button class="button" @click=${this._showMoreInfo}>D</button>
-              <button class="button" @click=${this._showMoreInfo}>D</button>
-              <button class="button" @click=${this._showMoreInfo}>D</button>
-            <div>
+              <button class="${powerButtonClass}" @click="${this._toggleBoiler}">
+                <ha-icon icon="mdi:power" class="button_icon power"></ha-icon>
+              </button>
+              <div class="${combinedButtonGroupClass}">
+                <button class="button timer" @click=${this._turnOnBoilerWithTimer}>
+                  <ha-icon icon="mdi:timer-outline" class="button_icon timer"></ha-icon>
+                </button>
+                <button class="button timer_time" @click=${this._cycleTimerValue}>
+                  ${this.timerValue}
+                </button>
+              </div>
+            </div>
           </div>
         </div>      
       </ha-card>
@@ -108,13 +123,6 @@ class SwitcherBoilerCard extends LitElement {
       height: 100%;
     }
 
-    // .content {
-    //   display: flex;
-    //   align-items: center;
-    //   justify-content: flex-start;
-    //   padding: 10px;
-    // }
-
     .container {
         display: flex;
         flex-direction: column;
@@ -130,7 +138,7 @@ class SwitcherBoilerCard extends LitElement {
         padding: 9px;
         flex: 1;
         box-sizing: border-box;
-        pointer-events: none;
+        //pointer-events: none;
     }    
 
     .controls {
@@ -147,38 +155,82 @@ class SwitcherBoilerCard extends LitElement {
     }
 
     .buttons-group {
-      display: grid; /* Use a grid layout */
-      grid-template-columns: repeat(3, 1fr); /* Ensure 3 buttons take equal space */
-      row-gap: 0px;
-      column-gap: 12px;
-      width: 100%; /* Make the group take up the full container width */
+      display: inline-flex;
+      justify-content: space-between;
+      width: 100%;
+      gap: 12px;
     }
 
     .button {
       height: var(--feature-height, 42px);
-      border-radius: var(--feature-border-radius, 12px);
-      border: none;
       background-color: #eeeeee;
       cursor: pointer;
-      transition: background-color 180ms ease-in-out;
-      text-align: center; /* Center button content */
+      //transition: background-color 180ms ease-in-out;
+      text-align: center;
+      flex: 0.6;
+      -webkit-flex: 0.6;
+      border: none;
+      border-radius: var(--feature-border-radius, 12px);
+      //pointer-events: none;
+      color: var(--primary-text-color);
+      font-weight: 500;
+      font-size: 20px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
     }
 
-    // .card {
-    //   display: flex;
-    //   align-items: center;
-    //   justify-content: flex-start;
-    //   padding: 9px;
-    //   background-color: var(--ha-card-background,var(--card-background-color,#fff));
-    //   border-radius: var(--ha-card-border-radius,12px);
-    //   box-shadow: var(--ha-card-box-shadow);
-    //   cursor: pointer;
-    //   user-select: none;
-    //   transition: transform 0.2s;
-    //   border-width: var(--ha-card-border-width,1px);
-    //   border-style: solid;
-    //   border-color: var(--ha-card-border-color,var(--divider-color,#e0e0e0));   
-    // }
+    .button.power.off {
+      background-color: var(--grey-color);
+    }
+
+    .button.power.on {
+      background-color: #F54436;
+    }    
+
+    .combined-buttons {
+      display: inline-flex;
+      flex: 2;
+      -webkit-flex: 2;
+      gap: 0px;
+      border-radius: var(--feature-border-radius, 12px);
+      //overflow: hidden;
+    }
+
+    .combined-buttons.dark-theme {
+      background-color: rgba(70,70,70,0.2);
+    }
+
+    .combined-buttons.light-theme {
+      background-color: rgba(189,189,189,0.2);
+    }    
+
+    .combined-buttons .button {
+      flex: 1;
+      -webkit-flex: 1;
+      border-radius: 0;
+      background: none;
+      display: inline-flex;
+      overflow: hidden;
+    }
+
+    .combined-buttons .button:first-child {
+      border-radius: var(--feature-border-radius, 12px) 0 0 var(--feature-border-radius, 12px);
+    }
+
+    .combined-buttons .button:last-child {
+      border-radius: 0 var(--feature-border-radius, 12px) var(--feature-border-radius, 12px) 0;
+    }
+
+    .button_icon {
+      --mdc-icon-size: 20px;
+      font-size: 12px;
+    }
+
+    .button_icon.power {
+      color: rgb(255,255,255);
+    } 
     
     .icon-container {
       display: flex;
@@ -249,44 +301,53 @@ class SwitcherBoilerCard extends LitElement {
       white-space: nowrap;
       width: 100%;
     }
-    .button {
-      display: block;
-      height: var(--feature-height, 42px);
-      width: 100%;
-      border-radius: var(--feature-border-radius, 12px);
-      border: none;
-      background-color: #eeeeee;
-      cursor: pointer;
-      transition: background-color 180ms ease-in-out;
-    }
-    .button:hover {
-      background-color: #dddddd;
-    }
-    .button:focus {
-      background-color: #cdcdcd;
-    }
+
+
+
   `;
 
-  _toggleBoiler() {
-    // Toggle the boiler entity
+  _toggleBoiler(event) {
+    event.stopPropagation();
+    event.preventDefault();
     const entityId = this.config.entity;
     this.hass.callService("homeassistant", "toggle", { entity_id: entityId });
   }
 
-  _showMoreInfo() {
+  _turnOnBoilerWithTimer(event) {
+    event.stopPropagation();
+    event.preventDefault();
+    const entityId = this.config.entity;
+    this.hass.callService("switcher_kis", "turn_on_with_timer", { entity_id: entityId, timer_minutes: this.timerValue });
+  }
+
+  _cycleTimerValue(event) {
+    event.stopPropagation();
+    event.preventDefault(); 
+    const timerValues = [15, 30, 45, 60];
+    const currentIndex = timerValues.indexOf(this.timerValue);
+    this.timerValue = timerValues[(currentIndex + 1) % timerValues.length];
+  }
+
+  _showMoreInfo(event) {
+    event.stopPropagation();
+    event.preventDefault(); 
     const entityId = this.config.entity;
     if (!entityId) return;
   
-    const event = new Event("hass-more-info", {
+    const moreInfoevent = new Event("hass-more-info", {
       bubbles: true,
       cancelable: true,
       composed: true,
     });
   
-    event.detail = { entityId };
-    this.dispatchEvent(event);
+    moreInfoevent.detail = { entityId };
+    this.dispatchEvent(moreInfoevent);
   }
   
+  isDarkTheme() {
+    return this.hass.themes.darkMode;
+  }
+
   getCardSize() {
     return 3;
   }
