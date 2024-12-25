@@ -1,3 +1,6 @@
+[![release][release-badge]][release-url]
+![downloads][downloads-badge]
+
 ![alt text](https://github.com/dmatik/switcher-boiler-card/blob/main/images/Switcher_logo_200.png "Logo")
 
 # switcher-boiler-card
@@ -69,7 +72,13 @@ time_left: sensor.switcher_touch_d54f_remaining_time
 electrical_current: sensor.switcher_touch_d54f_current
 ```
 
-<!-- References -->
+<!-- Badges -->
+[hacs-badge]: https://img.shields.io/badge/hacs-default-orange.svg?style=flat-square
+[release-badge]: https://img.shields.io/github/v/release/dmatik/switcher-boiler-card?style=flat-square
+[downloads-badge]: https://img.shields.io/github/downloads/dmatik/switcher-boiler-card/total?style=flat-square
 
+
+<!-- References -->
+[hacs-url]: https://github.com/hacs/integration
 [home-assistant]: https://www.home-assistant.io/
 [release-url]: https://github.com/piitaya/lovelace-mushroom/releases
