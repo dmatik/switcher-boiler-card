@@ -168,7 +168,7 @@ class SwitcherBoilerCard extends LitElement {
       flex: 1;
       -webkit-flex: 1;
       border: none;
-      border-radius: var(--feature-border-radius, 12px);
+      border-radius: var(--control-button-border-radius, 10px);
       //pointer-events: none;
       color: var(--primary-text-color);
       font-weight: 500;
@@ -231,7 +231,7 @@ class SwitcherBoilerCard extends LitElement {
     } 
     
     .icon-container {
-      display: flex;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
       width: 36px;
@@ -243,7 +243,7 @@ class SwitcherBoilerCard extends LitElement {
       margin-inline-start: initial;
       margin-inline-end: 10px;
       direction: var(--direction);
-      transition: transform 180ms ease-in-out;
+      transition: transform 180ms ease-in-out;     
     }
     
     .icon-container.on {
