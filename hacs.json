@@ -1,0 +1,7 @@
+{
+  "name": "Switcher Boiler Card",
+  "description" : "Custom Switcher Boiler Switch card for Home Assistant",
+  "content_in_root": false,
+  "filename": "switcher-boiler-card.js",
+  "render_readme" : true
+}
