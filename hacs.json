@@ -2,6 +2,6 @@
   "name": "Switcher Boiler Card",
   "content_in_root": false,
   "filename": "switcher-boiler-card.js",
-  "render_readme" : true
+  "render_readme" : true,
   "icon" : "icon.png"
 }
