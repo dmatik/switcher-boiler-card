@@ -5,6 +5,8 @@
 
 # switcher-boiler-card
 
+<a href="https://www.buymeacoffee.com/bg7MaEJHc" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/white_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a>
+
 ![alt text](https://github.com/dmatik/switcher-boiler-card/blob/main/images/switcher_boiler_card.png "Logo")
 
 ## What is switcher-boiler-card ?
