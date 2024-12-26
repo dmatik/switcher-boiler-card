@@ -13,6 +13,9 @@ Custom Switcher Boiler Switch card for Home Assistant.
 Built to work with official [Switcher Integration](https://www.home-assistant.io/integrations/switcher_kis/) for Home Assistant.
 The card desgned to look and feel similar to other Tile cards in HA.
 
+Welcome to our [Smart Home Israel](https://discord.gg/ayZ3Kkg) Discord channel to discuss.
+
+
 ### Features
 
 -   Fully supports HA UI Editor (no need to edit YAML code).
