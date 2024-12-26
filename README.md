@@ -32,6 +32,15 @@ Welcome to our [Smart Home Israel](https://discord.gg/ayZ3Kkg) Discord channel t
 
 To install from HACS you need to add this repository as custom repository first.
 
+1. Go to HACS and open 3 dots menu on the right upper corner.
+2. Select "Custom repositories" option.
+3. In the "Custom repositories" popup polulate as below:
+    - **Repository:** `https://github.com/dmatik/switcher-boiler-card`
+    - **Type:** `Dashboard`
+4. Click "Add".
+
+Now you should be able to find "Switcher Boiler Card" in HACS store.
+
 [![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=dmatik&repository=https%3A%2F%2Fgithub.com%2Fdmatik%2Fswitcher-boiler-card&category=plugin)
 
 ### Manual
