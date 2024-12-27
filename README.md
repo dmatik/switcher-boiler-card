@@ -5,6 +5,8 @@
 
 # switcher-boiler-card
 
+<a href="https://www.buymeacoffee.com/bg7MaEJHc" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/white_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a>
+
 ![alt text](https://github.com/dmatik/switcher-boiler-card/blob/main/images/switcher_boiler_card.png "Logo")
 
 ## What is switcher-boiler-card ?
@@ -12,6 +14,9 @@
 Custom Switcher Boiler Switch card for Home Assistant.
 Built to work with official [Switcher Integration](https://www.home-assistant.io/integrations/switcher_kis/) for Home Assistant.
 The card desgned to look and feel similar to other Tile cards in HA.
+
+Welcome to our [Smart Home Israel](https://discord.gg/ayZ3Kkg) Discord channel to discuss.
+
 
 ### Features
 
@@ -27,11 +32,20 @@ The card desgned to look and feel similar to other Tile cards in HA.
 
 To install from HACS you need to add this repository as custom repository first.
 
+1. Go to HACS and open 3 dots menu on the right upper corner.
+2. Select "Custom repositories" option.
+3. In the "Custom repositories" popup polulate as below:
+    - **Repository:** `https://github.com/dmatik/switcher-boiler-card`
+    - **Type:** `Dashboard`
+4. Click "Add".
+
+Now you should be able to find "Switcher Boiler Card" in HACS store.
+
 [![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=dmatik&repository=https%3A%2F%2Fgithub.com%2Fdmatik%2Fswitcher-boiler-card&category=plugin)
 
 ### Manual
 
-1. Download `switcher-boiler-card.js` and `switcher-boiler-card-editor.js` files from `src` folder in the [latest release][release-url].
+1. Download `switcher-boiler-card.js` and `switcher-boiler-card-editor.js` files from `dist` folder in the [latest release][release-url].
 2. Put `switcher-boiler-card.js` and `switcher-boiler-card-editor.js` files into your `config/www/switcher-boiler-card` folder.
 3. Add reference to `switcher-boiler-card.js` in Dashboard. There's two way to do that:
     - **Using UI:** _Settings_ → _Dashboards_ → _More Options icon_ → _Resources_ → _Add Resource_ → Set _Url_ as `/local/switcher-boiler-card/switcher-boiler-card.js` → Set _Resource type_ as `JavaScript Module`.
