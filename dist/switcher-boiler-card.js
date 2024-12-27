@@ -183,15 +183,15 @@ class SwitcherBoilerCard extends LitElement {
         position: absolute;
         border-radius: 50%;
         transform: scale(0);
-        animation: ripple-animation 600ms ease-out;
+        animation: ripple-animation 1000ms ease-out;
         background-color: currentColor; /* Matches the text color or icon color */
-        opacity: 0.1;
+        opacity: 0.08;
         pointer-events: none; /* Prevent interference with button click events */
     }
 
     @keyframes ripple-animation {
         to {
-            transform: scale(40); /* Scale the ripple */
+            transform: scale(30); /* Scale the ripple */
             opacity: 0; /* Fade out */
         }
     }  
