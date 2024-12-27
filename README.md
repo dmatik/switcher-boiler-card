@@ -45,7 +45,7 @@ Now you should be able to find "Switcher Boiler Card" in HACS store.
 
 ### Manual
 
-1. Download `switcher-boiler-card.js` and `switcher-boiler-card-editor.js` files from `src` folder in the [latest release][release-url].
+1. Download `switcher-boiler-card.js` and `switcher-boiler-card-editor.js` files from `dist` folder in the [latest release][release-url].
 2. Put `switcher-boiler-card.js` and `switcher-boiler-card-editor.js` files into your `config/www/switcher-boiler-card` folder.
 3. Add reference to `switcher-boiler-card.js` in Dashboard. There's two way to do that:
     - **Using UI:** _Settings_ → _Dashboards_ → _More Options icon_ → _Resources_ → _Add Resource_ → Set _Url_ as `/local/switcher-boiler-card/switcher-boiler-card.js` → Set _Resource type_ as `JavaScript Module`.
