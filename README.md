@@ -1,5 +1,4 @@
 [![release][release-badge]][release-url]
-![downloads][downloads-badge]
 
 ![alt text](https://github.com/dmatik/switcher-boiler-card/blob/main/images/Switcher_logo_200.png "Logo")
 
@@ -91,7 +90,6 @@ electrical_current: sensor.switcher_touch_d54f_current
 <!-- Badges -->
 [hacs-badge]: https://img.shields.io/badge/hacs-default-orange.svg?style=flat-square
 [release-badge]: https://img.shields.io/github/v/release/dmatik/switcher-boiler-card?style=flat-square
-[downloads-badge]: https://img.shields.io/github/downloads/dmatik/switcher-boiler-card/total?style=flat-square
 
 
 <!-- References -->
