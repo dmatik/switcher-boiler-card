@@ -161,9 +161,8 @@ class SwitcherBoilerCard extends LitElement {
 
     .button {
       height: var(--feature-height, 42px);
-      //background-color: #eeeeee;
       cursor: pointer;
-      //transition: background-color 180ms ease-in-out;
+      transition: background-color 180ms ease-in-out;
       text-align: center;
       flex: 1;
       -webkit-flex: 1;
@@ -177,7 +176,25 @@ class SwitcherBoilerCard extends LitElement {
       align-items: center;
       justify-content: center;
       overflow: hidden;
+      position: relative;
     }
+
+    .button .ripple {
+        position: absolute;
+        border-radius: 50%;
+        transform: scale(0);
+        animation: ripple-animation 600ms ease-out;
+        background-color: currentColor; /* Matches the text color or icon color */
+        opacity: 0.1;
+        pointer-events: none; /* Prevent interference with button click events */
+    }
+
+    @keyframes ripple-animation {
+        to {
+            transform: scale(40); /* Scale the ripple */
+            opacity: 0; /* Fade out */
+        }
+    }  
 
     .button.power.off {
       background-color: var(--grey-color);
@@ -202,7 +219,15 @@ class SwitcherBoilerCard extends LitElement {
 
     .button.light-theme {
       background-color: rgba(189,189,189,0.2);
-    }    
+    } 
+      
+    .button.dark-theme:hover {
+      background-color: rgba(70,70,70,0.3);
+    }
+
+    .button.light-theme:hover {
+      background-color: rgba(189,189,189,0.3);
+    }     
 
     .combined-buttons .button {
       flex: 1;
@@ -309,6 +334,8 @@ class SwitcherBoilerCard extends LitElement {
     event.preventDefault();
     const entityId = this.config.entity;
     this.hass.callService("homeassistant", "toggle", { entity_id: entityId });
+
+    this._rippleEffect(event);
   }
 
   _turnOnBoilerWithTimer(event) {
@@ -316,6 +343,8 @@ class SwitcherBoilerCard extends LitElement {
     event.preventDefault();
     const entityId = this.config.entity;
     this.hass.callService("switcher_kis", "turn_on_with_timer", { entity_id: entityId, timer_minutes: this.timerValue });
+
+    this._rippleEffect(event);
   }
 
   _cycleTimerValue(event) {
@@ -324,6 +353,31 @@ class SwitcherBoilerCard extends LitElement {
     const timerValues = [15, 30, 45, 60];
     const currentIndex = timerValues.indexOf(this.timerValue);
     this.timerValue = timerValues[(currentIndex + 1) % timerValues.length];
+
+    this._rippleEffect(event);
+  }
+
+  _rippleEffect(event) {
+    const button = event.currentTarget;
+
+    // Create ripple element
+    const ripple = document.createElement("span");
+    ripple.classList.add("ripple");
+
+    // Get click position
+    const rect = button.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height);
+    const x = event.clientX - rect.left - size / 2;
+    const y = event.clientY - rect.top - size / 2;
+
+    // Style ripple element
+    ripple.style.width = ripple.style.height = `${size}px`;
+    ripple.style.left = `${x}px`;
+    ripple.style.top = `${y}px`;
+
+    // Append ripple and remove after animation
+    button.appendChild(ripple);
+    setTimeout(() => ripple.remove(), 600); // Matches animation duration 
   }
 
   _showMoreInfo(event) {
