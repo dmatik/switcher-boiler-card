@@ -30,6 +30,7 @@ class SwitcherBoilerCard extends LitElement {
       icon: "",
       time_left: "",
       electrical_current: "",
+      additional_sensor: "",
     };
   }
 
@@ -59,20 +60,39 @@ class SwitcherBoilerCard extends LitElement {
     let displayState = "";
 
     if (isOn) {
-      if (this.config.time_left && !this.config.electrical_current) {
+      if (this.config.additional_sensor && !this.config.time_left && !this.config.electrical_current) {
+        displayState = this.hass.states[this.config.additional_sensor].state + this.hass.states[this.config.additional_sensor].attributes.unit_of_measurement;
+      }
+      if (this.config.additional_sensor && this.config.time_left && !this.config.electrical_current) {
+        displayState = this.hass.states[this.config.additional_sensor].state + this.hass.states[this.config.additional_sensor].attributes.unit_of_measurement
+          + " • " + this.hass.states[this.config.time_left].state;
+      }
+      if (this.config.additional_sensor && this.config.time_left && this.config.electrical_current) {
+        displayState = this.hass.states[this.config.additional_sensor].state + this.hass.states[this.config.additional_sensor].attributes.unit_of_measurement
+          + " • " + this.hass.states[this.config.time_left].state
+          + " • " + this.hass.states[this.config.electrical_current].state + "A";
+      }
+      if (!this.config.additional_sensor && this.config.time_left && !this.config.electrical_current) {
         displayState = this.hass.states[this.config.time_left].state;
       }
-      if (this.config.electrical_current && !this.config.time_left) {
-        displayState = this.hass.states[this.config.electrical_current].state + "A";
-      }      
-      if (this.config.time_left && this.config.electrical_current) {
-        displayState = this.hass.states[this.config.time_left].state + " • " + this.hass.states[this.config.electrical_current].state + "A";
+      if (!this.config.additional_sensor && this.config.time_left && this.config.electrical_current) {
+        displayState = this.hass.states[this.config.time_left].state
+          + " • " + this.hass.states[this.config.electrical_current].state + "A";
       }
-      if (!this.config.time_left && !this.config.electrical_current) {
+      if (!this.config.additional_sensor && !this.config.time_left && this.config.electrical_current) {
+        displayState = this.hass.states[this.config.electrical_current].state + "A";
+      }
+      if (!this.config.additional_sensor && !this.config.time_left && !this.config.electrical_current) {
         displayState = this.hass.localize(`component.switch.entity_component._.state.on`) || "on";
       }                      
     } else {
-      displayState = this.hass.localize(`component.switch.entity_component._.state.off`) || "off";
+      if (this.config.additional_sensor) {
+        displayState = this.hass.localize(`component.switch.entity_component._.state.off`) || "off";
+        displayState += " • " + this.hass.states[this.config.additional_sensor].state;
+        displayState += this.hass.states[this.config.additional_sensor].attributes.unit_of_measurement;
+      } else {
+        displayState = this.hass.localize(`component.switch.entity_component._.state.off`) || "off";
+      }
     }
 
     const powerButtonClass = isOn ? "button power on" : "button power off";
