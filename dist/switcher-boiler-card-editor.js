@@ -61,9 +61,9 @@ class SwitcherBoilerCardEditor extends LitElement {
       case "time_left":
         return "Time Left Sensor (Optional)";
       case "sensor_1":
-        return "Sensor 1 (Optional)";
+        return "Sensor 1 - On state (Optional)";
       case "sensor_2":
-        return "Sensor 2 (Optional)";         
+        return "Sensor 2 - On and Off state (Optional)";         
       default:
         return `${this.hass.localize(
           `ui.panel.lovelace.editor.card.generic.${name}`
