@@ -21,6 +21,7 @@ Welcome to our [Smart Home Israel](https://discord.gg/ayZ3Kkg) Discord channel t
 
 -   Fully supports HA UI Editor (no need to edit YAML code).
 -   Displays remaining time and/or Electrical Current in state field.
+-   Optional additional sensor to display in state field. For example if you have added Thermostat inside the Boiler to measure actual water temperature.
 -   The time selection button loops through 15/30/45/60 minutes, when clicked.
 -   Turn on with or without selected timer.
 -   Support editing in YAML as well (please see table below).
@@ -67,14 +68,15 @@ The card can be fully configured from HA UI Editor.
 ### YAML configuration
 
 
-|        Name        |                        Description                                                    |             Required             |
-| ------------------ | --------------------------------------------------------------------------------------| -------------------------------- |
-| `type`             | `custom:switcher-boiler-card`                                                         | yes                              |
-| `entity`           | Switcher switch entity                                                                | yes                              |
-| `name`             | Card name. Leave empty to take entity friendly name.                                  | no                               |
-| `icon`             | Card icon. Leave empty to take icon from entity.                                      | no                               |
-| `time_left`        | Time left sensor entity. Leave empty if you don't want it to be displayed.            | no                               |
-| `electrical_current` | Electrical Current sensor entity. Leave empty if you don't want it to be displayed. | no                               |
+|        Name          |                        Description                                                    |             Required             |
+| -------------------- | ------------------------------------------------------------------------------------- | -------------------------------- |
+| `type`               | `custom:switcher-boiler-card`                                                         | yes                              |
+| `entity`             | Switcher switch entity                                                                | yes                              |
+| `name`               | Card name. Leave empty to take entity friendly name.                                  | no                               |
+| `icon`               | Card icon. Leave empty to take icon from entity.                                      | no                               |
+| `time_left`          | Time left sensor entity. Leave empty if you don't want it to be displayed.            | no                               |
+| `electrical_current` | Electrical Current sensor entity. Leave empty if you don't want it to be displayed.   | no                               |
+| `additional_sensor`  | Additional sensor entity. Leave empty if you don't want it to be displayed.           | no                               |
 
 Example:
 
