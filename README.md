@@ -20,8 +20,8 @@ Welcome to our [Smart Home Israel](https://discord.gg/ayZ3Kkg) Discord channel t
 ### Features
 
 -   Fully supports HA UI Editor (no need to edit YAML code).
--   Displays remaining time and/or Electrical Current in state field.
--   Optional additional sensor to display in state field. For example if you have added Thermostat inside the Boiler to measure actual water temperature.
+-   Displays remaining time in state field.
+-   Optional additional 2 sensors to display in state field. Sensor 1 to be displayed when Switcher is On. Sensor 2 to be displayed when Switcher is On and Off.
 -   The time selection button loops through 15/30/45/60 minutes, when clicked.
 -   Turn on with or without selected timer.
 -   Support editing in YAML as well (please see table below).
@@ -75,8 +75,8 @@ The card can be fully configured from HA UI Editor.
 | `name`               | Card name. Leave empty to take entity friendly name.                                  | no                               |
 | `icon`               | Card icon. Leave empty to take icon from entity.                                      | no                               |
 | `time_left`          | Time left sensor entity. Leave empty if you don't want it to be displayed.            | no                               |
-| `electrical_current` | Electrical Current sensor entity. Leave empty if you don't want it to be displayed.   | no                               |
-| `additional_sensor`  | Additional sensor entity. Leave empty if you don't want it to be displayed.           | no                               |
+| `sensor_1`           | Sensor 1 entity. Displayed only when Switcher is On.                                  | no                               |
+| `sensor_2`           | Sensor 2 entity. Displayed when Switcher is On and Off.                               | no                               |
 
 Example:
 
@@ -86,7 +86,7 @@ entity: switch.switcher_touch_d54f
 name: Boiler
 icon: mdi:waves
 time_left: sensor.switcher_touch_d54f_remaining_time
-electrical_current: sensor.switcher_touch_d54f_current
+sensor_1: sensor.switcher_touch_d54f_current
 ```
 
 <!-- Badges -->
