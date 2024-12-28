@@ -29,8 +29,8 @@ class SwitcherBoilerCard extends LitElement {
       entity: "",
       icon: "",
       time_left: "",
-      electrical_current: "",
-      additional_sensor: "",
+      sensor_1: "",
+      sensor_2: "",
     };
   }
 
@@ -60,36 +60,36 @@ class SwitcherBoilerCard extends LitElement {
     let displayState = "";
 
     if (isOn) {
-      if (this.config.additional_sensor && !this.config.time_left && !this.config.electrical_current) {
-        displayState = this.hass.states[this.config.additional_sensor].state + this.hass.states[this.config.additional_sensor].attributes.unit_of_measurement;
-      }
-      if (this.config.additional_sensor && this.config.time_left && !this.config.electrical_current) {
-        displayState = this.hass.states[this.config.additional_sensor].state + this.hass.states[this.config.additional_sensor].attributes.unit_of_measurement
-          + " • " + this.hass.states[this.config.time_left].state;
-      }
-      if (this.config.additional_sensor && this.config.time_left && this.config.electrical_current) {
-        displayState = this.hass.states[this.config.additional_sensor].state + this.hass.states[this.config.additional_sensor].attributes.unit_of_measurement
-          + " • " + this.hass.states[this.config.time_left].state
-          + " • " + this.hass.states[this.config.electrical_current].state + "A";
-      }
-      if (!this.config.additional_sensor && this.config.time_left && !this.config.electrical_current) {
+      if (this.config.time_left && !this.config.sensor_1 && !this.config.sensor_2) {
         displayState = this.hass.states[this.config.time_left].state;
       }
-      if (!this.config.additional_sensor && this.config.time_left && this.config.electrical_current) {
+      if (this.config.time_left && this.config.sensor_1 && !this.config.sensor_2) {
         displayState = this.hass.states[this.config.time_left].state
-          + " • " + this.hass.states[this.config.electrical_current].state + "A";
+          + " • " + this.hass.states[this.config.sensor_1].state + this.hass.states[this.config.sensor_1].attributes.unit_of_measurement;
+      }      
+      if (this.config.time_left && this.config.sensor_1 && this.config.sensor_2) {
+        displayState = this.hass.states[this.config.time_left].state
+          + " • " + this.hass.states[this.config.sensor_1].state + this.hass.states[this.config.sensor_1].attributes.unit_of_measurement
+          + " • " + this.hass.states[this.config.sensor_2].state + this.hass.states[this.config.sensor_2].attributes.unit_of_measurement;
+      } 
+      if (!this.config.time_left && this.config.sensor_1 && this.config.sensor_2) {
+        displayState = this.hass.states[this.config.sensor_1].state + this.hass.states[this.config.sensor_1].attributes.unit_of_measurement
+          + " • " + this.hass.states[this.config.sensor_2].state + this.hass.states[this.config.sensor_2].attributes.unit_of_measurement;
       }
-      if (!this.config.additional_sensor && !this.config.time_left && this.config.electrical_current) {
-        displayState = this.hass.states[this.config.electrical_current].state + "A";
+      if (!this.config.time_left && !this.config.sensor_1 && this.config.sensor_2) {
+        displayState = this.hass.states[this.config.sensor_2].state + this.hass.states[this.config.sensor_2].attributes.unit_of_measurement;
       }
-      if (!this.config.additional_sensor && !this.config.time_left && !this.config.electrical_current) {
+      if (!this.config.time_left && this.config.sensor_1 && !this.config.sensor_2) {
+        displayState = this.hass.states[this.config.sensor_1].state + this.hass.states[this.config.sensor_1].attributes.unit_of_measurement;
+      }      
+      if (!this.config.time_left && !this.config.sensor_1 && !this.config.sensor_2) {
         displayState = this.hass.localize(`component.switch.entity_component._.state.on`) || "on";
       }                      
     } else {
-      if (this.config.additional_sensor) {
+      if (this.config.sensor_2) {
         displayState = this.hass.localize(`component.switch.entity_component._.state.off`) || "off";
-        displayState += " • " + this.hass.states[this.config.additional_sensor].state;
-        displayState += this.hass.states[this.config.additional_sensor].attributes.unit_of_measurement;
+        displayState += " • " + this.hass.states[this.config.sensor_2].state;
+        displayState += this.hass.states[this.config.sensor_2].attributes.unit_of_measurement;
       } else {
         displayState = this.hass.localize(`component.switch.entity_component._.state.off`) || "off";
       }

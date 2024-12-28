@@ -10,8 +10,8 @@ const SCHEMA = [
   { name: "name", selector: { text: {} } },
   { name: "icon", selector: { icon: {} }, context: { icon_entity: "entity" } },  
   { name: "time_left", selector: { entity: { domain: ["sensor"] } } },
-  { name: "electrical_current", selector: { entity: { domain: ["sensor"] } } },
-  { name: "additional_sensor", selector: { entity: { domain: ["sensor"] } } },
+  { name: "sensor_1", selector: { entity: { domain: ["sensor"] } } },
+  { name: "sensor_2", selector: { entity: { domain: ["sensor"] } } },
 ];
 
 const fireEvent = (node, type, detail, options) => {
@@ -60,10 +60,10 @@ class SwitcherBoilerCardEditor extends LitElement {
     switch (name) {
       case "time_left":
         return "Time Left Sensor (Optional)";
-      case "electrical_current":
-        return "Electrical Current Sensor (Optional)";
-      case "additional_sensor":
-        return "Additional Sensor (Optional)";         
+      case "sensor_1":
+        return "Sensor 1 (Optional)";
+      case "sensor_2":
+        return "Sensor 2 (Optional)";         
       default:
         return `${this.hass.localize(
           `ui.panel.lovelace.editor.card.generic.${name}`
