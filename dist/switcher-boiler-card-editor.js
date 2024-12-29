@@ -12,6 +12,12 @@ const SCHEMA = [
   { name: "time_left", selector: { entity: { domain: ["sensor"] } } },
   { name: "sensor_1", selector: { entity: { domain: ["sensor"] } } },
   { name: "sensor_2", selector: { entity: { domain: ["sensor"] } } },
+  {
+    name: "timer_values",
+    selector: {
+      
+    },
+  }
 ];
 
 const fireEvent = (node, type, detail, options) => {
@@ -33,7 +39,10 @@ class SwitcherBoilerCardEditor extends LitElement {
   };
 
   setConfig(config) {
-    this._config = config;
+    this._config = {
+      ...config,
+      timer_values: (config.timer_values || ["15", "30", "45", "60"]).sort((a, b) => parseInt(a) - parseInt(b)),
+    };    
   }
 
   render() {
@@ -45,11 +54,63 @@ class SwitcherBoilerCardEditor extends LitElement {
       <ha-form
         .hass=${this.hass}
         .data=${this._config}
-        .schema=${SCHEMA}
+        .schema=${SCHEMA.filter((field) => field.name !== "timer_values")}
         .computeLabel=${this._computeLabelCallback}
         @value-changed=${this._valueChanged}
-      />
+      ></ha-form>
+      ${this._renderTimerValues()}
     `;
+  }
+
+  _renderTimerValues() {
+    const timerValues = [
+      { value: "15", label: "15" },
+      { value: "30", label: "30" },
+      { value: "45", label: "45" },
+      { value: "60", label: "60" },
+      { value: "75", label: "75" },
+      { value: "90", label: "90" },
+      { value: "105", label: "105" },
+      { value: "120", label: "120" },
+      { value: "135", label: "135" },
+      { value: "150", label: "150" },
+    ];
+
+    const selectedValues = this._config.timer_values || [];
+
+    return html`
+      <div class="timer-values-label">Timer Values (Minutes) (Optional)</div>
+      <div class="timer-values">
+        ${timerValues.map(
+          (option) => html`
+            <label>
+              <input
+                type="checkbox"
+                value="${option.value}"
+                ?checked=${selectedValues.includes(option.value)}
+                @change=${this._onTimerValueChanged}
+              />
+              ${option.label}
+            </label>
+          `
+        )}
+      </div>
+    `;
+  }
+
+  _onTimerValueChanged(e) {
+    const value = e.target.value;
+    const checked = e.target.checked;
+    const currentValues = this._config.timer_values || [];
+    const updatedValues = checked
+      ? [...currentValues, value]
+      : currentValues.filter((v) => v !== value);
+
+    const sortedValues = updatedValues.sort((a, b) => parseInt(a) - parseInt(b));
+
+    this._valueChanged({
+      detail: { value: { ...this._config, timer_values: sortedValues } },
+    });
   }
 
   _valueChanged = (ev) =>
@@ -103,6 +164,23 @@ class SwitcherBoilerCardEditor extends LitElement {
       margin-top: 8px;
       display: block;
     }
+    .timer-values {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+      margin-top: 16px;
+    }
+    .timer-values label {
+      display: flex;
+      align-items: center;
+    }
+    .timer-values input {
+      margin-right: 8px;
+    }
+    .timer-values-label {
+      margin-top: 24px;
+      margin-bottom: 8px;
+    }      
   `;
 }
 

@@ -9,13 +9,13 @@ class SwitcherBoilerCard extends LitElement {
   static properties = {
     hass: {},
     config: {},
-    timerValue: { type: Number },
+    timerValue: { type: String },
   };
   
   constructor() {
     super();
     this.hasError = false;
-    this.timerValue = 15;
+    this.timerValue = '15';
   }
 
   static getConfigElement() {
@@ -39,6 +39,7 @@ class SwitcherBoilerCard extends LitElement {
       throw new Error("You need to define an entity");
     }
     this.config = config;
+    this.timerValue = this.config.timer_values? this.config.timer_values[0] : '15';
   }
 
   render() {
@@ -349,8 +350,6 @@ class SwitcherBoilerCard extends LitElement {
       width: 100%;
     }
 
-
-
   `;
 
   _toggleBoiler(event) {
@@ -374,9 +373,15 @@ class SwitcherBoilerCard extends LitElement {
   _cycleTimerValue(event) {
     event.stopPropagation();
     event.preventDefault(); 
-    const timerValues = [15, 30, 45, 60];
+
+    const timerValues = this.config.timer_values ? this.config.timer_values : ['15', '30', '45', '60']; // Array of string values
     const currentIndex = timerValues.indexOf(this.timerValue);
-    this.timerValue = timerValues[(currentIndex + 1) % timerValues.length];
+
+    // Fallback to the first value if currentValue is not in the array
+    this.timerValue =
+      currentIndex === -1
+        ? timerValues[0]
+        : timerValues[(currentIndex + 1) % timerValues.length];
 
     this._rippleEffect(event);
   }
@@ -401,7 +406,7 @@ class SwitcherBoilerCard extends LitElement {
 
     // Append ripple and remove after animation
     button.appendChild(ripple);
-    setTimeout(() => ripple.remove(), 600); // Matches animation duration 
+    setTimeout(() => ripple.remove(), 1000); // Matches animation duration 
   }
 
   _showMoreInfo(event) {
