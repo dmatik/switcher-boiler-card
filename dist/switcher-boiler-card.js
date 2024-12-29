@@ -63,6 +63,10 @@ class SwitcherBoilerCard extends LitElement {
       if (this.config.time_left && !this.config.sensor_1 && !this.config.sensor_2) {
         displayState = this.hass.states[this.config.time_left].state;
       }
+      if (this.config.time_left && !this.config.sensor_1 && this.config.sensor_2) {
+        displayState = this.hass.states[this.config.time_left].state
+          + " • " + this.hass.states[this.config.sensor_2].state + this.hass.states[this.config.sensor_2].attributes.unit_of_measurement;
+      }
       if (this.config.time_left && this.config.sensor_1 && !this.config.sensor_2) {
         displayState = this.hass.states[this.config.time_left].state
           + " • " + this.hass.states[this.config.sensor_1].state + this.hass.states[this.config.sensor_1].attributes.unit_of_measurement;
@@ -71,7 +75,7 @@ class SwitcherBoilerCard extends LitElement {
         displayState = this.hass.states[this.config.time_left].state
           + " • " + this.hass.states[this.config.sensor_1].state + this.hass.states[this.config.sensor_1].attributes.unit_of_measurement
           + " • " + this.hass.states[this.config.sensor_2].state + this.hass.states[this.config.sensor_2].attributes.unit_of_measurement;
-      } 
+      }
       if (!this.config.time_left && this.config.sensor_1 && this.config.sensor_2) {
         displayState = this.hass.states[this.config.sensor_1].state + this.hass.states[this.config.sensor_1].attributes.unit_of_measurement
           + " • " + this.hass.states[this.config.sensor_2].state + this.hass.states[this.config.sensor_2].attributes.unit_of_measurement;
