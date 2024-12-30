@@ -180,6 +180,8 @@ class SwitcherBoilerCardEditor extends LitElement {
     .timer-values-label {
       margin-top: 24px;
       margin-bottom: 8px;
+      margin-right: 6px;
+      margin-left: 6px;
     }      
   `;
 }
