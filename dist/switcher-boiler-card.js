@@ -374,10 +374,12 @@ class SwitcherBoilerCard extends LitElement {
     event.stopPropagation();
     event.preventDefault(); 
 
-    // Create a copy of the array and sort it numerically
-    const timerValues = [...(this.config.timer_values || ['15', '30', '45', '60'])].sort(
-      (a, b) => parseInt(a) - parseInt(b)
-    );
+    // Create a unique, sorted array, filter values, and convert back to strings
+    const timerValues = [...new Set(this.config.timer_values || ['15', '30', '45', '60'])]
+      .map(Number) // Convert all values to numbers
+      .filter((value) => value >= 1 && value <= 150) // Keep only values in the range of 1 and 150
+      .sort((a, b) => a - b) // Sort numerically
+      .map(String); // Convert back to strings
 
     const currentIndex = timerValues.indexOf(this.timerValue);
 
@@ -439,10 +441,12 @@ class SwitcherBoilerCard extends LitElement {
 
   getLayoutOptions() {
     return {
-      grid_rows: 1,
-      grid_columns: 6,
-      grid_min_rows: 1,
+      grid_rows: 2,
+      grid_columns: 2,
+      grid_min_rows: 2,
       grid_max_rows: 2,
+      grid_min_columns: 2,
+      grid_max_columns: 4
     };
   }  
 }
