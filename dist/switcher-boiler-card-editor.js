@@ -41,7 +41,12 @@ class SwitcherBoilerCardEditor extends LitElement {
   setConfig(config) {
     this._config = {
       ...config,
-      timer_values: (config.timer_values || ["15", "30", "45", "60"]).sort((a, b) => parseInt(a) - parseInt(b)),
+      timer_values: [...new Set((config.timer_values || ['15', '30', '45', '60'])
+        .map(Number) // Convert all values to numbers
+        .filter((value) => value >= 1 && value <= 150) // Keep only values in the range of 1 and 150
+        .sort((a, b) => a - b) // Sort numerically
+        .map(String) // Convert back to strings
+        )],
     };    
   }
 
