@@ -375,12 +375,12 @@ class SwitcherBoilerCard extends LitElement {
     event.preventDefault(); 
 
     // Create a unique, sorted array, filter values, and convert back to strings
-    const timerValues = [...new Set(this.config.timer_values || ['15', '30', '45', '60'])]
+    const timerValues = [...new Set((this.config.timer_values || ['15', '30', '45', '60'])
       .map(Number) // Convert all values to numbers
       .filter((value) => value >= 1 && value <= 150) // Keep only values in the range of 1 and 150
       .sort((a, b) => a - b) // Sort numerically
-      .map(String); // Convert back to strings
-
+      .map(String) // Convert back to strings
+      )];
     const currentIndex = timerValues.indexOf(this.timerValue);
 
     // Fallback to the first value if currentValue is not in the array
