@@ -196,7 +196,7 @@ class SwitcherBoilerCard extends LitElement {
       //pointer-events: none;
       color: var(--primary-text-color);
       font-weight: 500;
-      font-size: 20px;
+      font-size: 18px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -374,7 +374,11 @@ class SwitcherBoilerCard extends LitElement {
     event.stopPropagation();
     event.preventDefault(); 
 
-    const timerValues = this.config.timer_values ? this.config.timer_values : ['15', '30', '45', '60']; // Array of string values
+    // Create a copy of the array and sort it numerically
+    const timerValues = [...(this.config.timer_values || ['15', '30', '45', '60'])].sort(
+      (a, b) => parseInt(a) - parseInt(b)
+    );
+
     const currentIndex = timerValues.indexOf(this.timerValue);
 
     // Fallback to the first value if currentValue is not in the array
