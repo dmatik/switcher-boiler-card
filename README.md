@@ -28,7 +28,7 @@ Welcome to our [Smart Home Israel](https://discord.gg/ayZ3Kkg) Discord channel t
 
 ## Installation
 
-### HACS (Coming soon)
+### HACS
 
 To install from HACS you need to add this repository as custom repository first.
 
@@ -103,4 +103,4 @@ timer_values:
 <!-- References -->
 [hacs-url]: https://github.com/hacs/integration
 [home-assistant]: https://www.home-assistant.io/
-[release-url]: https://github.com/piitaya/lovelace-mushroom/releases
+[release-url]: https://github.com/dmatik/switcher-boiler-card/releases
