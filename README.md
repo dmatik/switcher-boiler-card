@@ -6,7 +6,7 @@
 
 <a href="https://www.buymeacoffee.com/bg7MaEJHc" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/white_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a>
 
-![alt text](https://github.com/dmatik/switcher-boiler-card/blob/main/images/switcher_boiler_card.png "Logo")
+![alt text](https://github.com/dmatik/switcher-boiler-card/blob/main/images/switcher_boiler_card.png "Switcher Boiler Card")
 
 ## What is switcher-boiler-card ?
 
@@ -62,7 +62,7 @@ Now you should be able to find "Switcher Boiler Card" in HACS store.
 ### UI Editor
 The card can be fully configured from HA UI Editor.
 
-![alt text](https://github.com/dmatik/switcher-boiler-card/blob/main/images/switcher_editor.png "Logo")
+![alt text](https://github.com/dmatik/switcher-boiler-card/blob/main/images/switcher_editor.png "Switcher Boiler Card Editor")
 
 
 ### YAML configuration
