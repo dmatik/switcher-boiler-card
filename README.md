@@ -34,7 +34,7 @@ To install from HACS you need to add this repository as custom repository first.
 
 1. Go to HACS and open 3 dots menu on the right upper corner.
 2. Select "Custom repositories" option.
-3. In the "Custom repositories" popup polulate as below:
+3. In the "Custom repositories" popup populate as below:
     - **Repository:** `https://github.com/dmatik/switcher-boiler-card`
     - **Type:** `Dashboard`
 4. Click "Add".
