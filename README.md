@@ -12,7 +12,7 @@
 
 Custom Switcher Boiler Switch card for Home Assistant.
 Built to work with official [Switcher Integration](https://www.home-assistant.io/integrations/switcher_kis/) for Home Assistant.
-The card desgned to look and feel similar to other Tile cards in HA.
+The card designed to look and feel similar to other Tile cards in HA.
 
 Welcome to our [Smart Home Israel](https://discord.gg/ayZ3Kkg) Discord channel to discuss.
 
@@ -22,7 +22,7 @@ Welcome to our [Smart Home Israel](https://discord.gg/ayZ3Kkg) Discord channel t
 -   Fully supports HA UI Editor (no need to edit YAML code).
 -   Displays remaining time in state field.
 -   Optional additional 2 sensors to display in state field. Sensor 1 to be displayed when Switcher is On. Sensor 2 to be displayed when Switcher is On and Off.
--   The time selection button loops through configurable timer values in munutes, when clicked.
+-   The time selection button loops through configurable timer values in minutes, when clicked.
 -   Turn on with or without selected timer.
 -   Support editing in YAML as well (please see table below).
 
