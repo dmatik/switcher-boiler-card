@@ -77,7 +77,7 @@ The card can be fully configured from HA UI Editor.
 | `time_left`          | Time left sensor entity. Leave empty if you don't want it to be displayed.            | no                               |                                 | 
 | `sensor_1`           | Sensor 1 entity. Displayed only when Switcher is On.                                  | no                               |                                 |
 | `sensor_2`           | Sensor 2 entity. Displayed when Switcher is On and Off.                               | no                               |                                 |
-| `timer_values`       | List of values for timer in minutes.                                                  | no                               | 15, 30, 45, 60                  |
+| `timer_values`       | List of values for timer in minutes (from 1 to 150).                                  | no                               | 15, 30, 45, 60                  |
 
 Example:
 
