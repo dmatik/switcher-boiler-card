@@ -15,6 +15,7 @@ Built to work with official [Switcher Integration](https://www.home-assistant.io
 The card designed to look and feel similar to other Tile cards in HA.
 
 Welcome to our [Smart Home Israel](https://discord.gg/ayZ3Kkg) Discord channel to discuss.
+#### For any question, feel free to leave comment in my [HA Community post](https://community.home-assistant.io/t/lovelace-switcher-boiler-card/826475).
 
 
 ### Features
