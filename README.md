@@ -22,6 +22,7 @@ Welcome to our [Smart Home Israel](https://discord.gg/ayZ3Kkg) Discord channel t
 -   Fully supports HA UI Editor (no need to edit YAML code).
 -   Displays remaining time in state field.
 -   Optional additional 2 sensors to display in state field. Sensor 1 to be displayed when Switcher is On. Sensor 2 to be displayed when Switcher is On and Off.
+-   Optional icon sensor, very useful to display water temperature (if you have it installed separatelly), instead if icon.
 -   The time selection button loops through configurable timer values in minutes, when clicked.
 -   Turn on with or without selected timer.
 -   Support editing in YAML as well (please see table below).
@@ -75,6 +76,7 @@ The card can be fully configured from HA UI Editor.
 | `time_left`          | Time left sensor entity. Leave empty if you don't want it to be displayed.            | no                               |                                 | 
 | `sensor_1`           | Sensor 1 entity. Displayed only when Switcher is On.                                  | no                               |                                 |
 | `sensor_2`           | Sensor 2 entity. Displayed when Switcher is On and Off.                               | no                               |                                 |
+| `icon_sensor`        | Icon Sensor entity. Displayed when Switcher is On and Off. Must be numeric.           | no                               |                                 |
 | `timer_values`       | List of values for timer in minutes (from 1 to 150).                                  | no                               | 15, 30, 45, 60                  |
 
 Example:
@@ -86,6 +88,7 @@ name: Boiler
 icon: mdi:waves
 time_left: sensor.switcher_touch_d54f_remaining_time
 sensor_1: sensor.switcher_touch_d54f_current
+icon_sensor: sensor.switcher_water_temperature
 timer_values:
   - "15"
   - "30"
