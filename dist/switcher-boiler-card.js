@@ -31,6 +31,7 @@ class SwitcherBoilerCard extends LitElement {
       time_left: "",
       sensor_1: "",
       sensor_2: "",
+      icon_sensor: "",
     };
   }
 
@@ -56,7 +57,8 @@ class SwitcherBoilerCard extends LitElement {
     
     const isOn = stateValue === "on";
     const iconContainerClass = isOn ? "icon-container on" : "icon-container off";
-    const iconClass = isOn ? "icon on" : "icon off";    
+    const iconClass = isOn ? "icon on" : "icon off";
+    const iconSensorClass = isOn ? "icon-sensor on" : "icon-sensor off";   
 
     let displayState = "";
 
@@ -108,9 +110,16 @@ class SwitcherBoilerCard extends LitElement {
     return html`
       <ha-card class="card" id="card">
         <div class="container">
-          <div class="content" @click="${this._showMoreInfo}">
+          <div class="content" @click="${(e) => this._showMoreInfo(e, this.config.entity)}">
             <div class="${iconContainerClass}" id="icon-container">
-              <ha-icon icon="${displayIcon}" class="${iconClass}" id="icon"></ha-icon>
+              ${
+                this.config.icon_sensor && this.hass.states[this.config.icon_sensor] &&
+                !isNaN(parseFloat(this.hass.states[this.config.icon_sensor].state))
+                  ? html`<span class="${iconSensorClass}" @click="${(e) => this._showMoreInfo(e, this.config.icon_sensor)}">
+                            ${parseFloat(this.hass.states[this.config.icon_sensor].state).toFixed(1)}°
+                          </span>`
+                  : html`<ha-icon icon="${displayIcon}" class="${iconClass}" id="icon"></ha-icon>`
+              }
             </div>
             <div class="label">
               <span class="primary" id="name">${displayName}</span>
@@ -318,6 +327,29 @@ class SwitcherBoilerCard extends LitElement {
       color: var(--state-light-off-color, var(--state-light-inactive-color, var(--state-inactive-color)));
     }
     
+    .icon-sensor {
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 36px;
+      height: 36px;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: -1px;
+      line-height: 36px;
+    }
+
+    .icon-sensor.on {
+      color: #F54436; /* Red for "on" state */
+    }
+
+    .icon-sensor.off {
+      color: var(--primary-text-color);
+    }    
+
     .label {
       display: flex;
       flex-direction: column;
@@ -415,10 +447,10 @@ class SwitcherBoilerCard extends LitElement {
     setTimeout(() => ripple.remove(), 1000); // Matches animation duration 
   }
 
-  _showMoreInfo(event) {
+  _showMoreInfo(event, entityId) {
     event.stopPropagation();
     event.preventDefault(); 
-    const entityId = this.config.entity;
+    //const entityId = this.config.entity;
     if (!entityId) return;
   
     const moreInfoevent = new Event("hass-more-info", {
