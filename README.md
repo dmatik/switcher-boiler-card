@@ -97,6 +97,49 @@ timer_values:
   - "60"
 ```
 
+## Optional
+### Remaning Time Sensor
+You can use the below Template Sensor in HA to display the Remeaning Time sesnor in more user frinedly way.
+Just replace the "sensor.switcher_touch_d54f_remaining_time" with your remaning time sensor.
+
+```yaml
+template:
+
+    sensor:
+      # Remaining Time Alt
+      - name: "switcher_kis_remaining_time_alt"
+        unique_id: switcher_kis_remaining_time_alt
+        icon: mdi:timelapse
+        state: >-
+          {% if is_state("switch.switcher_touch_d54f", "off") or is_state("sensor.switcher_touch_d54f_remaining_time", "00:00:00") %}
+              off
+          {% else %}
+              {% set hour = states("sensor.switcher_touch_d54f_remaining_time").split(':')[0] %}
+              {% set min = states("sensor.switcher_touch_d54f_remaining_time").split(':')[1] %}
+              {% set sec = states("sensor.switcher_touch_d54f_remaining_time").split(':')[2] %}
+              {% set sec_int = sec|int %}
+              {% set min_int = min|int %}
+              {% set hour_int = hour|int %}
+
+              {% if min_int > 0 %}
+                {% set min_int = min_int + 1 %}
+              {% endif %}
+              {% if min_int == 60 %}
+                {% set min_int = 0 %}
+                {% set hour_int = hour_int + 1 %}
+              {% endif %}
+
+              {% if hour_int == 0 and min_int == 0 %}
+                  {{ sec_int }} sec
+              {% elif hour_int == 0 %}
+                  {{ min_int }} min
+              {% else %}
+                  {{'%02d' % hour_int}}:{{'%02d' % min_int}}
+              {% endif %}
+          {% endif %}
+```
+
+
 <!-- Badges -->
 [hacs-badge]: https://img.shields.io/badge/hacs-default-orange.svg?style=flat-square
 [release-badge]: https://img.shields.io/github/v/release/dmatik/switcher-boiler-card?style=flat-square
