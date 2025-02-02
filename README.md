@@ -98,9 +98,11 @@ timer_values:
 ```
 
 ## Optional
+
 ### Remaning Time Sensor
-You can use the below Template Sensor in HA to display the Remeaning Time sesnor in more user frinedly way.
-Just replace the "sensor.switcher_touch_d54f_remaining_time" with your remaning time sensor.
+
+You can use the below Template Sensor in HA to display the Remeaning Time sesnor in more user frinedly way.  
+Just replace `switch.switcher_touch_d54f` and `sensor.switcher_touch_d54f_remaining_time` with your entities names.
 
 ```yaml
 template:
