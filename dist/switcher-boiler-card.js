@@ -314,9 +314,9 @@ class SwitcherBoilerCard extends LitElement {
     }
     
     .icon {
-      font-size: 22px;
+      font-size: 24px;
       transition: color 0.3s;
-      --mdc-icon-size: 22px;
+      --mdc-icon-size: 24px;
     }
 
     .icon.on {
