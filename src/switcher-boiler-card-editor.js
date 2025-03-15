@@ -1,14 +1,9 @@
-
-import {
-  LitElement,
-  html,
-  css,
-} from "https://unpkg.com/lit-element@3.3.3/lit-element.js?module";
+import { css, html, LitElement } from 'lit'
 
 const SCHEMA = [
   { name: "entity", selector: { entity: { domain: ["switch"] } } },
   { name: "name", selector: { text: {} } },
-  { name: "icon", selector: { icon: {} }, context: { icon_entity: "entity" } },  
+  { name: "icon", selector: { icon: {} }, context: { icon_entity: "entity" } },
   { name: "time_left", selector: { entity: { domain: ["sensor"] } } },
   { name: "sensor_1", selector: { entity: { domain: ["sensor"] } } },
   { name: "sensor_2", selector: { entity: { domain: ["sensor"] } } },
@@ -16,7 +11,7 @@ const SCHEMA = [
   {
     name: "timer_values",
     selector: {
-      
+
     },
   }
 ];
@@ -48,7 +43,7 @@ class SwitcherBoilerCardEditor extends LitElement {
         .sort((a, b) => a - b) // Sort numerically
         .map(String) // Convert back to strings
         )],
-    };    
+    };
   }
 
   render() {
@@ -132,7 +127,7 @@ class SwitcherBoilerCardEditor extends LitElement {
       case "sensor_2":
         return "Sensor 2 - On and Off state (Optional)";
       case "icon_sensor":
-        return "Icon Sensor (Optional)";         
+        return "Icon Sensor (Optional)";
       default:
         return `${this.hass.localize(
           `ui.panel.lovelace.editor.card.generic.${name}`
@@ -190,7 +185,7 @@ class SwitcherBoilerCardEditor extends LitElement {
       margin-bottom: 8px;
       margin-right: 6px;
       margin-left: 6px;
-    }      
+    }
   `;
 }
 
