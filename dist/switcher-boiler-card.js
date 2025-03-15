@@ -5,7 +5,7 @@ import {
 } from "https://unpkg.com/lit-element@3.3.3/lit-element.js?module";
 import "./switcher-boiler-card-editor.js";
 
-console.groupCollapsed(`%cSWITCHER-BOILER-CARD%c v${'1.1.2'}`, "color: white; background: #F54436; font-weight: bold", "color: #F54436; font-weight: bold"),
+console.groupCollapsed(`%c SWITCHER-BOILER-CARD %c v${'1.1.2'}`, "color: white; background: #F54436; font-weight: bold", "color: #F54436; font-weight: bold"),
 console.log("Readme:", "https://github.com/dmatik/switcher-boiler-card"),
 console.groupEnd();
 
