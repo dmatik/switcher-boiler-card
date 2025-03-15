@@ -1,7 +1,7 @@
 import { css, html, LitElement } from 'lit'
 import "./switcher-boiler-card-editor.js";
 
-console.groupCollapsed(`%c SWITCHER-BOILER-CARD %c v${'1.1.2'}`, "color: white; background: #F54436; font-weight: bold", "color: #F54436; font-weight: bold"),
+console.groupCollapsed(`%c SWITCHER-BOILER-CARD %c v${'1.1.3'}`, "color: white; background: #F54436; font-weight: bold", "color: #F54436; font-weight: bold"),
 console.log("Readme:", "https://github.com/dmatik/switcher-boiler-card"),
 console.groupEnd();
 

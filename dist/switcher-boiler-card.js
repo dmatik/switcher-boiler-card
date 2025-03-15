@@ -598,7 +598,7 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 },{}],"i5KkI":[function(require,module,exports,__globalThis) {
 var _lit = require("lit");
 var _switcherBoilerCardEditorJs = require("./switcher-boiler-card-editor.js");
-console.groupCollapsed(`%c SWITCHER-BOILER-CARD %c v${'1.1.2'}`, "color: white; background: #F54436; font-weight: bold", "color: #F54436; font-weight: bold"), console.log("Readme:", "https://github.com/dmatik/switcher-boiler-card"), console.groupEnd();
+console.groupCollapsed(`%c SWITCHER-BOILER-CARD %c v${'1.1.3'}`, "color: white; background: #F54436; font-weight: bold", "color: #F54436; font-weight: bold"), console.log("Readme:", "https://github.com/dmatik/switcher-boiler-card"), console.groupEnd();
 class SwitcherBoilerCard extends (0, _lit.LitElement) {
     static properties = {
         hass: {},
