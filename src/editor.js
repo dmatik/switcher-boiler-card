@@ -1,4 +1,4 @@
-import { css, html, LitElement } from 'lit'
+import { html, LitElement } from 'lit'
 import styles from './editor.styles';
 
 const SCHEMA = [
