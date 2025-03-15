@@ -1,6 +1,18 @@
 {
+  "source": "src/index.js",
+  "module": "dist/switcher-boiler-card.js",
+  "targets": {
+    "module": {
+      "includeNodeModules": true
+    }
+  },
+  "scripts": {
+    "watch": "parcel watch",
+    "build": "parcel build --no-source-maps"
+  },
   "devDependencies": {
-    "parcel": "^2.13.3"
+    "parcel": "^2.13.3",
+    "@parcel/transformer-inline-string": "^2.13.3"
   },
   "dependencies": {
     "lit": "^3.2.1"
