@@ -1,6 +1,16 @@
 import { SwitcherBoilerCard } from "./card";
 import { SwitcherBoilerCardEditor } from "./editor";
 
+declare global {
+  interface Window {
+    customCards: Array<Object>;
+  }
+}
+
+console.groupCollapsed(`%c SWITCHER-BOILER-CARD %c v${'1.2.0'}`, "color: white; background: #F54436; font-weight: bold", "color: #F54436; font-weight: bold"),
+console.log("Readme:", "https://github.com/dmatik/switcher-boiler-card"),
+console.groupEnd();
+
 customElements.define("switcher-boiler-card", SwitcherBoilerCard);
 customElements.define("switcher-boiler-card-editor", SwitcherBoilerCardEditor);
 
@@ -12,5 +22,6 @@ const cardDef = {
     documentationURL: "https://github.com/dmatik/switcher-boiler-card",
     configurable: true,
   };
+  
 window.customCards = window.customCards || [];
 window.customCards.push(cardDef);

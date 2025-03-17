@@ -1,19 +1,17 @@
-import { html, LitElement } from 'lit'
+import { html, LitElement } from 'lit';
+import { property, state } from "lit/decorators.js";
 import styles from './card.styles';
-
-console.groupCollapsed(`%c SWITCHER-BOILER-CARD %c v${'1.1.4'}`, "color: white; background: #F54436; font-weight: bold", "color: #F54436; font-weight: bold"),
-console.log("Readme:", "https://github.com/dmatik/switcher-boiler-card"),
-console.groupEnd();
+import { HomeAssistant, LovelaceCardConfig } from "custom-card-helpers";
 
 export class SwitcherBoilerCard extends LitElement {
 
-  static styles = styles;
+  @state() hasError: boolean;
+  @state() timerValue: string;
 
-  static properties = {
-    hass: {},
-    config: {},
-    timerValue: { type: String },
-  };
+  @property({ attribute: false }) hass!: HomeAssistant;
+  @property({ attribute: false }) config!: LovelaceCardConfig;
+
+  static styles = styles;
 
   constructor() {
     super();
@@ -38,7 +36,7 @@ export class SwitcherBoilerCard extends LitElement {
     };
   }
 
-  setConfig(config) {
+  setConfig(config: LovelaceCardConfig) {
     if (!config.entity) {
       throw new Error("You need to define an entity");
     }
@@ -147,30 +145,32 @@ export class SwitcherBoilerCard extends LitElement {
     `;
   }
 
-  _toggleBoiler(event) {
+  private _toggleBoiler(event: MouseEvent): void {
     event.stopPropagation();
     event.preventDefault();
-    const entityId = this.config.entity;
+  
+    const entityId: string = this.config.entity;
     this.hass.callService("homeassistant", "toggle", { entity_id: entityId });
-
+  
     this._rippleEffect(event);
-  }
+  }  
 
-  _turnOnBoilerWithTimer(event) {
+  private _turnOnBoilerWithTimer(event: MouseEvent): void {
     event.stopPropagation();
     event.preventDefault();
+
     const entityId = this.config.entity;
     this.hass.callService("switcher_kis", "turn_on_with_timer", { entity_id: entityId, timer_minutes: this.timerValue });
 
     this._rippleEffect(event);
   }
 
-  _cycleTimerValue(event) {
+  private _cycleTimerValue(event: MouseEvent): void {
     event.stopPropagation();
     event.preventDefault();
 
     // Create a unique, sorted array, filter values, and convert back to strings
-    const timerValues = [...new Set((this.config.timer_values || ['15', '30', '45', '60'])
+    const timerValues: string[] = [...new Set((this.config.timer_values as string[] | number[] || ['15', '30', '45', '60'])
       .map(Number) // Convert all values to numbers
       .filter((value) => value >= 1 && value <= 150) // Keep only values in the range of 1 and 150
       .sort((a, b) => a - b) // Sort numerically
@@ -187,47 +187,48 @@ export class SwitcherBoilerCard extends LitElement {
     this._rippleEffect(event);
   }
 
-  _rippleEffect(event) {
-    const button = event.currentTarget;
-
+  private _rippleEffect(event: MouseEvent): void {
+    const button = event.currentTarget as HTMLElement | null;
+    if (!button) return;
+  
     // Create ripple element
     const ripple = document.createElement("span");
     ripple.classList.add("ripple");
-
+  
     // Get click position
     const rect = button.getBoundingClientRect();
     const size = Math.max(rect.width, rect.height);
     const x = event.clientX - rect.left - size / 2;
     const y = event.clientY - rect.top - size / 2;
-
+  
     // Style ripple element
     ripple.style.width = ripple.style.height = `${size}px`;
     ripple.style.left = `${x}px`;
     ripple.style.top = `${y}px`;
-
+  
     // Append ripple and remove after animation
     button.appendChild(ripple);
     setTimeout(() => ripple.remove(), 1000); // Matches animation duration
-  }
+  }  
 
-  _showMoreInfo(event, entityId) {
+  private _showMoreInfo(event: Event, entityId: string): void {
     event.stopPropagation();
     event.preventDefault();
-    //const entityId = this.config.entity;
+  
     if (!entityId) return;
-
-    const moreInfoevent = new Event("hass-more-info", {
+  
+    const moreInfoEvent = new CustomEvent("hass-more-info", {
       bubbles: true,
       cancelable: true,
       composed: true,
+      detail: { entityId },
     });
+  
+    this.dispatchEvent(moreInfoEvent);
+  }  
 
-    moreInfoevent.detail = { entityId };
-    this.dispatchEvent(moreInfoevent);
-  }
-
-  isDarkTheme() {
-    return this.hass.themes.darkMode;
+  private isDarkTheme(): boolean {
+    return (this.hass.themes as any).darkMode ?? false;
   }
 
   getCardSize() {

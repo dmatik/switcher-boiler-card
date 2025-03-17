@@ -1,5 +1,8 @@
-import { html, LitElement } from 'lit'
+import { html, LitElement } from 'lit';
+import { state } from "lit/decorators/state";
 import styles from './editor.styles';
+import { HomeAssistant, LovelaceCardConfig } from "custom-card-helpers";
+
 
 const SCHEMA = [
   { name: "entity", selector: { entity: { domain: ["switch"] } } },
@@ -17,28 +20,27 @@ const SCHEMA = [
   }
 ];
 
-const fireEvent = (node, type, detail, options) => {
-  options = options || {};
-  const event = new Event(type, {
+const fireEvent = (node: HTMLElement, type: string, detail: any, options: { bubbles?: boolean; cancelable?: boolean; composed?: boolean } = {}): CustomEvent => {
+  const event = new CustomEvent(type, {
     bubbles: options.bubbles === undefined ? true : options.bubbles,
     cancelable: Boolean(options.cancelable),
     composed: options.composed === undefined ? true : options.composed,
+    detail: detail,
   });
-  event.detail = detail;
+
   node.dispatchEvent(event);
   return event;
 };
 
 export class SwitcherBoilerCardEditor extends LitElement {
 
+  @state() _config :LovelaceCardConfig;
+
+  private hass: HomeAssistant;
+
   static styles = styles;
 
-  static properties = {
-    hass: {},
-    _config: {},
-  };
-
-  setConfig(config) {
+  setConfig(config: LovelaceCardConfig) {
     this._config = {
       ...config,
       timer_values: [...new Set((config.timer_values || ['15', '30', '45', '60'])
