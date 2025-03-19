@@ -2065,7 +2065,7 @@ class $d067581fc0d59830$export$1841dadb9ebd245b extends (0, $ab210b2da7b39b9d$ex
 ], $d067581fc0d59830$export$1841dadb9ebd245b.prototype, "_config", void 0);
 
 
-console.groupCollapsed(`%c SWITCHER-BOILER-CARD %c v${'1.2.0'}`, "color: white; background: #F54436; font-weight: bold", "color: #F54436; font-weight: bold"), console.log("Readme:", "https://github.com/dmatik/switcher-boiler-card"), console.groupEnd();
+console.groupCollapsed(`%c SWITCHER-BOILER-CARD %c v${'1.2.3'}`, "color: white; background: #F54436; font-weight: bold", "color: #F54436; font-weight: bold"), console.log("Readme:", "https://github.com/dmatik/switcher-boiler-card"), console.groupEnd();
 customElements.define("switcher-boiler-card", (0, $a399cc6bbb0eb26a$export$f725446453aa0621));
 customElements.define("switcher-boiler-card-editor", (0, $d067581fc0d59830$export$1841dadb9ebd245b));
 const $f0d540db358c20b7$var$cardDef = {
