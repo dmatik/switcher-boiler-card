@@ -205,7 +205,7 @@ export default css`
     width: 36px;
     height: 36px;
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 600;
     letter-spacing: -1px;
     line-height: 36px;
   }
