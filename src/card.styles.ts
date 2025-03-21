@@ -62,6 +62,7 @@ export default css`
     border-radius: var(--control-button-border-radius, 10px);
     //pointer-events: none;
     color: var(--primary-text-color);
+    font-family: sans-serif;
     font-weight: 500;
     font-size: 18px;
     display: inline-flex;
@@ -171,6 +172,18 @@ export default css`
     background-color: rgba(158, 158, 158, 0.2); /* Light gray for "off" state */
   }
 
+  .icon-container.cold {
+    background-color: rgba(33, 150, 243, 0.2); /* Light blue for low temp */
+  }
+
+  .icon-container.warm {
+    background-color: rgba(255, 111, 34, 0.2); /* Light orange for mid temp */
+  }
+
+  .icon-container.hot {
+    background-color: rgba(245, 68, 54, 0.2); /* Light red for high temp */
+  }  
+
   .icon {
     font-size: 24px;
     transition: color 0.3s;
@@ -186,16 +199,15 @@ export default css`
   }
 
   .icon-sensor {
-    font-size: 16px;
-    font-weight: bold;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
     width: 36px;
     height: 36px;
+    font-family: sans-serif;
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 600;
     letter-spacing: -1px;
     line-height: 36px;
   }
@@ -207,6 +219,18 @@ export default css`
   .icon-sensor.off {
     color: var(--primary-text-color);
   }
+
+  .icon-sensor.cold {
+    color: rgb(33, 150, 243); /* Blue for low temp */
+  }
+
+  .icon-sensor.warm {
+    color: rgb(255, 111, 34); /* Orange for mid temp */
+  }
+
+  .icon-sensor.hot {
+    color: rgb(245, 68, 54); /* Red for high temp */
+  }    
 
   .label {
     display: flex;

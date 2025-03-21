@@ -11,7 +11,14 @@ const SCHEMA = [
   { name: "time_left", selector: { entity: { domain: ["sensor"] } } },
   { name: "sensor_1", selector: { entity: { domain: ["sensor"] } } },
   { name: "sensor_2", selector: { entity: { domain: ["sensor"] } } },
-  { name: "icon_sensor", selector: { entity: { domain: ["sensor"] } } },
+  {
+    type: "grid",
+    name: "",
+    schema: [
+      { name: "icon_sensor", selector: { entity: { domain: ["sensor"] } } },
+      { name: "color_thresholds", selector: { boolean: {} } },
+    ],
+  },  
   {
     name: "timer_values",
     selector: {
@@ -134,6 +141,8 @@ export class SwitcherBoilerCardEditor extends LitElement {
         return "Sensor 2 - On and Off state (Optional)";
       case "icon_sensor":
         return "Icon Sensor (Optional)";
+      case "color_thresholds":
+        return "Color Thresholds (Optional)";
       default:
         return `${this.hass.localize(
           `ui.panel.lovelace.editor.card.generic.${name}`
