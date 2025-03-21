@@ -24,6 +24,7 @@ Welcome to our [Smart Home Israel](https://discord.gg/ayZ3Kkg) Discord channel t
 -   Displays remaining time in state field.
 -   Optional additional 2 sensors to display in state field. Sensor 1 to be displayed when Switcher is On. Sensor 2 to be displayed when Switcher is On and Off.
 -   Optional icon sensor, very useful to display water temperature (if you have it installed separatelly), instead if icon.
+-   Optional temperature color thresholds when icon sensor is being used.
 -   The time selection button loops through configurable timer values in minutes, when clicked.
 -   Turn on with or without selected timer.
 -   Support editing in YAML as well (please see table below).
@@ -78,6 +79,7 @@ The card can be fully configured from HA UI Editor.
 | `sensor_1`           | Sensor 1 entity. Displayed only when Switcher is On.                                  | no                               |                                 |
 | `sensor_2`           | Sensor 2 entity. Displayed when Switcher is On and Off.                               | no                               |                                 |
 | `icon_sensor`        | Icon Sensor entity. Displayed when Switcher is On and Off. Must be numeric.           | no                               |                                 |
+| `color_thresholds`   | temperature color thresholds for icon sensor.                                         | no                               | false                           |
 | `timer_values`       | List of values for timer in minutes (from 1 to 150).                                  | no                               | 15, 30, 45, 60                  |
 
 Example:
