@@ -62,7 +62,7 @@ export default css`
     border-radius: var(--control-button-border-radius, 10px);
     //pointer-events: none;
     color: var(--primary-text-color);
-    font-family: Roboto, sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-weight: 500;
     font-size: 18px;
     display: inline-flex;
@@ -205,7 +205,7 @@ export default css`
     align-items: center;
     width: 36px;
     height: 36px;
-    font-family: Roboto, sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-size: 14px;
     font-weight: 600;
     letter-spacing: -1px;
