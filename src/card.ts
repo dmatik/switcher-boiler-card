@@ -33,6 +33,7 @@ export class SwitcherBoilerCard extends LitElement {
       sensor_1: "",
       sensor_2: "",
       icon_sensor: "",
+      color_thresholds: false
     };
   }
 
@@ -47,6 +48,8 @@ export class SwitcherBoilerCard extends LitElement {
   render() {
     const { name, icon, entity } = this.config;
 
+    const useColorThresholds: boolean = this.config.color_thresholds;
+
     const entityState = this.hass?.states?.[entity];
     if (!entityState) return;
 
@@ -56,10 +59,30 @@ export class SwitcherBoilerCard extends LitElement {
 
     const displayIcon = icon || entityState?.attributes?.icon || "mdi:waves";
 
-    const isOn = stateValue === "on";
-    const iconContainerClass = isOn ? "icon-container on" : "icon-container off";
+    const isOn = stateValue === "on"; 
+    const iconSensorValue = parseFloat(this.hass.states[this.config.icon_sensor]?.state);
+    const isIconSensor = this.config.icon_sensor && this.hass.states[this.config.icon_sensor] && !isNaN(iconSensorValue);
+
+    let iconContainerClass = "";
+    let iconSensorClass = "";
+
+    if (useColorThresholds && isIconSensor) {
+      if (iconSensorValue <= 20) {
+        iconContainerClass = "icon-container cold";
+        iconSensorClass = "icon-sensor cold";
+      } else if (iconSensorValue > 20 && iconSensorValue <50) {
+        iconContainerClass = "icon-container warm";
+        iconSensorClass = "icon-sensor warm";
+      } else {
+        iconContainerClass = "icon-container hot";
+        iconSensorClass = "icon-sensor hot";
+      }
+    } else {
+      iconContainerClass = isOn ? "icon-container on" : "icon-container off";
+      iconSensorClass = isOn ? "icon-sensor on" : "icon-sensor off";
+    }
+
     const iconClass = isOn ? "icon on" : "icon off";
-    const iconSensorClass = isOn ? "icon-sensor on" : "icon-sensor off";
 
     let displayState = "";
 
@@ -114,8 +137,7 @@ export class SwitcherBoilerCard extends LitElement {
           <div class="content" @click="${(e) => this._showMoreInfo(e, this.config.entity)}">
             <div class="${iconContainerClass}" id="icon-container">
               ${
-                this.config.icon_sensor && this.hass.states[this.config.icon_sensor] &&
-                !isNaN(parseFloat(this.hass.states[this.config.icon_sensor].state))
+                isIconSensor 
                   ? html`<span class="${iconSensorClass}" @click="${(e) => this._showMoreInfo(e, this.config.icon_sensor)}">
                             ${parseFloat(this.hass.states[this.config.icon_sensor].state).toFixed(1)}°
                           </span>`
