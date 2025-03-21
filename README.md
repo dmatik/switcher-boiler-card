@@ -92,6 +92,7 @@ icon: mdi:waves
 time_left: sensor.switcher_touch_d54f_remaining_time
 sensor_1: sensor.switcher_touch_d54f_current
 icon_sensor: sensor.switcher_water_temperature
+color_thresholds: true
 timer_values:
   - "15"
   - "30"
