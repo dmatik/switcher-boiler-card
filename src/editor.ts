@@ -18,6 +18,14 @@ const SCHEMA = [
       { name: "icon_sensor", selector: { entity: { domain: ["sensor"] } } },
       { name: "color_thresholds", selector: { boolean: {} } },
     ],
+  },
+  {
+    type: "grid",
+    name: "",
+    schema: [
+      { name: "cold_threshold", selector: { number: { min: 10, max: 80, step: 1, mode: "slider" } } },
+      { name: "hot_threshold", selector: { number: { min: 10, max: 80, step: 1, mode: "slider" } } },
+    ],
   },  
   {
     name: "timer_values",
@@ -143,6 +151,10 @@ export class SwitcherBoilerCardEditor extends LitElement {
         return "Icon Sensor (Optional)";
       case "color_thresholds":
         return "Color Thresholds (Optional)";
+      case "cold_threshold":
+        return "Cold Threshold";
+      case "hot_threshold":
+        return "Hot Threshold";         
       default:
         return `${this.hass.localize(
           `ui.panel.lovelace.editor.card.generic.${name}`

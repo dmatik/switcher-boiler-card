@@ -33,7 +33,9 @@ export class SwitcherBoilerCard extends LitElement {
       sensor_1: "",
       sensor_2: "",
       icon_sensor: "",
-      color_thresholds: false
+      color_thresholds: false,
+      cold_threshold: 20,
+      hot_threshold: 50,
     };
   }
 
@@ -43,12 +45,20 @@ export class SwitcherBoilerCard extends LitElement {
     }
     this.config = config;
     this.timerValue = this.config.timer_values? this.config.timer_values[0] : '15';
+
+    const coldThreshold: number = this.config.cold_threshold || 20;
+    const hotThreshold: number = this.config.hot_threshold || 50;
+    if (hotThreshold <= coldThreshold) {
+      throw new Error("Cold Threshold must be lower then Hot Threshold");
+    }
   }
 
   render() {
     const { name, icon, entity } = this.config;
 
     const useColorThresholds: boolean = this.config.color_thresholds;
+    const coldThreshold: number = this.config.cold_threshold || 20;
+    const hotThreshold: number = this.config.hot_threshold || 50;
 
     const entityState = this.hass?.states?.[entity];
     if (!entityState) return;
@@ -67,10 +77,10 @@ export class SwitcherBoilerCard extends LitElement {
     let iconSensorClass = "";
 
     if (useColorThresholds && isIconSensor) {
-      if (iconSensorValue <= 20) {
+      if (iconSensorValue <= coldThreshold) {
         iconContainerClass = "icon-container cold";
         iconSensorClass = "icon-sensor cold";
-      } else if (iconSensorValue > 20 && iconSensorValue <50) {
+      } else if (iconSensorValue > coldThreshold && iconSensorValue <= hotThreshold) {
         iconContainerClass = "icon-container warm";
         iconSensorClass = "icon-sensor warm";
       } else {
