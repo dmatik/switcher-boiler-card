@@ -7,7 +7,7 @@
     }
   },
   "scripts": {
-    "watch": "parcel watch",
+    "watch": "node -e \"console.log('Last build:', new Date().toLocaleString())\" && parcel watch",
     "build": "parcel build --no-source-maps"
   },
   "devDependencies": {
