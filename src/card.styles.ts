@@ -203,13 +203,13 @@ export default css`
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 36px;
-    height: 36px;
+    width: 100%;
+    height: 100%;
     font-family: 'Roboto', sans-serif;
     font-size: 14px;
     font-weight: 600;
     letter-spacing: -1px;
-    line-height: 36px;
+    line-height: 0px;
     padding-top: 2px;
   }
 
