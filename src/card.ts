@@ -46,8 +46,8 @@ export class SwitcherBoilerCard extends LitElement {
     this.config = config;
     this.timerValue = this.config.timer_values? this.config.timer_values[0] : '15';
 
-    const coldThreshold: number = this.config.cold_threshold || 20;
-    const hotThreshold: number = this.config.hot_threshold || 50;
+    const coldThreshold: number = this.config.cold_threshold;
+    const hotThreshold: number = this.config.hot_threshold;
     if (hotThreshold <= coldThreshold) {
       throw new Error("Cold Threshold must be lower then Hot Threshold");
     }
