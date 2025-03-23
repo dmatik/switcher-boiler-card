@@ -200,17 +200,18 @@ export default css`
 
   .icon-sensor {
     border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    //display: flex;
+    //justify-content: center;
+    //align-items: center;
     width: 100%;
     height: 100%;
     font-family: 'Roboto', sans-serif;
-    font-size: 14px;
-    font-weight: 600;
+    font-size: 15px;
+    font-weight: 500;
     letter-spacing: -1px;
-    line-height: 0px;
-    padding-top: 2px;
+    line-height: 36px;
+    //padding-top: 2px;
+    text-align: center;
   }
 
   .icon-sensor.on {

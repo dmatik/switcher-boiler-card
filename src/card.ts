@@ -56,7 +56,7 @@ export class SwitcherBoilerCard extends LitElement {
   render() {
     const { name, icon, entity } = this.config;
 
-    const useColorThresholds: boolean = this.config.color_thresholds;
+    const useColorThresholds: boolean = this.config.color_thresholds === true;
     const coldThreshold: number = this.config.cold_threshold || 20;
     const hotThreshold: number = this.config.hot_threshold || 50;
 
