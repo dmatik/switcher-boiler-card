@@ -7,7 +7,7 @@ declare global {
   }
 }
 
-console.groupCollapsed(`%c SWITCHER-BOILER-CARD %c v${'1.2.7'}-dev`, "color: white; background: #F54436; font-weight: bold", "color: #F54436; font-weight: bold"),
+console.groupCollapsed(`%c SWITCHER-BOILER-CARD %c v${'1.2.7'}`, "color: white; background: #F54436; font-weight: bold", "color: #F54436; font-weight: bold"),
 console.log("Readme:", "https://github.com/dmatik/switcher-boiler-card"),
 console.groupEnd();
 
