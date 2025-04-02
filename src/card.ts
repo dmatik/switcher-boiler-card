@@ -149,7 +149,7 @@ export class SwitcherBoilerCard extends LitElement {
               ${
                 isIconSensor 
                   ? html`<span class="${iconSensorClass}" @click="${(e) => this._showMoreInfo(e, this.config.icon_sensor)}">
-                            ${parseFloat(this.hass.states[this.config.icon_sensor].state).toFixed(1)}°
+                            ${iconSensorValue.toFixed(1)}°
                           </span>`
                   : html`<ha-icon icon="${displayIcon}" class="${iconClass}" id="icon"></ha-icon>`
               }
