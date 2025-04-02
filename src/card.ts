@@ -1,4 +1,4 @@
-import { html, LitElement } from 'lit';
+import { html, LitElement, TemplateResult } from 'lit';
 import { property, state } from "lit/decorators.js";
 import styles from './card.styles';
 import { HomeAssistant, LovelaceCardConfig } from "custom-card-helpers";
@@ -148,10 +148,8 @@ export class SwitcherBoilerCard extends LitElement {
             <div class="${iconContainerClass}" id="icon-container">
               ${
                 isIconSensor 
-                  ? html`<span class="${iconSensorClass}" @click="${(e) => this._showMoreInfo(e, this.config.icon_sensor)}">
-                            ${iconSensorValue.toFixed(1)}°
-                          </span>`
-                  : html`<ha-icon icon="${displayIcon}" class="${iconClass}" id="icon"></ha-icon>`
+                  ? this.renderIconSensor(iconSensorClass, iconSensorValue)
+                  : this.renderIcon(iconClass, displayIcon)
               }
             </div>
             <div class="label">
@@ -176,6 +174,22 @@ export class SwitcherBoilerCard extends LitElement {
       </ha-card>
     `;
   }
+
+  private renderIconSensor(iconSensorClass: string, iconSensorValue: number): TemplateResult  {
+    
+    return html`
+      <span class="${iconSensorClass}" @click="${(e) => this._showMoreInfo(e, this.config.icon_sensor)}">
+        ${iconSensorValue.toFixed(1)}°
+      </span>
+    `;
+  }
+
+  private renderIcon(iconClass: string, displayIcon: string): TemplateResult  {
+    
+    return html`
+      <ha-icon icon="${displayIcon}" class="${iconClass}" id="icon"></ha-icon>
+    `;
+  }  
 
   private _toggleBoiler(event: MouseEvent): void {
     event.stopPropagation();
