@@ -5,7 +5,6 @@ import { HomeAssistant, LovelaceCardConfig } from "custom-card-helpers";
 
 export class SwitcherBoilerCard extends LitElement {
 
-  @state() hasError: boolean;
   @state() timerValue: string;
 
   @property({ attribute: false }) hass!: HomeAssistant;
@@ -15,7 +14,6 @@ export class SwitcherBoilerCard extends LitElement {
 
   constructor() {
     super();
-    this.hasError = false;
     this.timerValue = '15';
   }
 

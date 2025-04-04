@@ -23,7 +23,10 @@ export default css`
       display: flex;
       flex-direction: row;
       align-items: center;
-      padding: 9px;
+      padding-top: 9px;
+      padding-bottom: 10px;
+      padding-left: 9px;
+      padding-right: 9px;
       flex: 1;
       box-sizing: border-box;
       //pointer-events: none;
