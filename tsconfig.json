@@ -5,5 +5,7 @@
     "moduleResolution": "node",
     "experimentalDecorators": true,
     "useDefineForClassFields": false,
+    "resolveJsonModule": true,
+    "esModuleInterop": true
   }
 }
