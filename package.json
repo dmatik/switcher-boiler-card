@@ -1,5 +1,5 @@
 {
-  "version": "1.2.9-b2",
+  "version": "1.2.9-b3",
   "source": "src/index.ts",
   "module": "dist/switcher-boiler-card.js",
   "targets": {
@@ -8,18 +8,16 @@
     }
   },
   "scripts": {
-    "watch": "rollup -c --watch --bundleConfigAsCjs",
-    "build": "rollup -c --bundleConfigAsCjs"
+    "watch": "rollup -c --watch",
+    "build": "rollup -c"
   },
   "devDependencies": {
-    "@rollup/plugin-babel": "^6.0.4",
     "@rollup/plugin-commonjs": "^28.0.2",
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^16.0.0",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^12.1.2",
-    "rollup": "^4.39.0",
-    "rollup-plugin-serve": "^1.1.1"
+    "rollup": "^4.39.0"
   },
   "dependencies": {
     "custom-card-helpers": "^1.9.0",
