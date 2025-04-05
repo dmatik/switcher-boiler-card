@@ -1,5 +1,5 @@
 import { html, LitElement } from 'lit';
-import { state } from "lit/decorators/state";
+import { state } from "lit/decorators.js";
 import styles from './editor.styles';
 import { HomeAssistant, LovelaceCardConfig } from "custom-card-helpers";
 

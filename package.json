@@ -8,16 +8,23 @@
     }
   },
   "scripts": {
-    "watch": "parcel watch",
-    "build": "parcel build --no-source-maps"
+    "watch": "rollup -c --watch --bundleConfigAsCjs",
+    "build": "rollup -c --bundleConfigAsCjs"
   },
   "devDependencies": {
-    "@parcel/transformer-inline-string": "^2.13.3",
-    "parcel": "^2.13.3"
+    "@rollup/plugin-babel": "^6.0.4",
+    "@rollup/plugin-commonjs": "^28.0.2",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^16.0.0",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^12.1.2",
+    "rollup": "^4.39.0",
+    "rollup-plugin-serve": "^1.1.1"
   },
   "dependencies": {
     "custom-card-helpers": "^1.9.0",
     "home-assistant-js-websocket": "^9.4.0",
-    "lit": "^3.2.1"
+    "lit": "^3.2.1",
+    "luxon": "^3.2.1"
   }
 }
