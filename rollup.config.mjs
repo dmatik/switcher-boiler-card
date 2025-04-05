@@ -9,7 +9,7 @@ const isProduction = process.env.NODE_ENV === 'production';
 
 export default [
   {
-    input: "src/index.ts",
+    input: "src/main.ts",
     output: {
       file: 'dist/switcher-boiler-card.js',
       format: "es",
