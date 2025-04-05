@@ -142,7 +142,7 @@ export class SwitcherBoilerCard extends LitElement {
     return html`
       <ha-card class="card" id="card">
         <div class="container">
-          <div class="content" @click="${(e) => this._showMoreInfo(e, this.config.entity)}">
+          <div class="content" @click="${(e: MouseEvent) => this._showMoreInfo(e, this.config.entity)}">
             <div class="${iconContainerClass}" id="icon-container">
               ${
                 isIconSensor 
@@ -176,7 +176,7 @@ export class SwitcherBoilerCard extends LitElement {
   private renderIconSensor(iconSensorClass: string, iconSensorValue: number): TemplateResult  {
     
     return html`
-      <span class="${iconSensorClass}" @click="${(e) => this._showMoreInfo(e, this.config.icon_sensor)}">
+      <span class="${iconSensorClass}" @click="${(e: MouseEvent) => this._showMoreInfo(e, this.config.icon_sensor)}">
         ${iconSensorValue.toFixed(1)}°
       </span>
     `;
