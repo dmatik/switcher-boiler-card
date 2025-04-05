@@ -22,7 +22,6 @@
   "dependencies": {
     "custom-card-helpers": "^1.9.0",
     "home-assistant-js-websocket": "^9.4.0",
-    "lit": "^3.2.1",
-    "luxon": "^3.2.1"
+    "lit": "^3.2.1"
   }
 }
