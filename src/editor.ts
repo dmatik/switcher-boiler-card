@@ -1,5 +1,5 @@
 import { html, LitElement } from 'lit';
-import { state } from "lit/decorators/state";
+import { state } from "lit/decorators.js";
 import styles from './editor.styles';
 import { HomeAssistant, LovelaceCardConfig } from "custom-card-helpers";
 
@@ -49,9 +49,9 @@ const fireEvent = (node: HTMLElement, type: string, detail: any, options: { bubb
 
 export class SwitcherBoilerCardEditor extends LitElement {
 
-  @state() _config :LovelaceCardConfig;
+  @state() _config: LovelaceCardConfig = {} as LovelaceCardConfig;
 
-  private hass: HomeAssistant;
+  private hass!: HomeAssistant;
 
   static styles = styles;
 
@@ -60,8 +60,8 @@ export class SwitcherBoilerCardEditor extends LitElement {
       ...config,
       timer_values: [...new Set((config.timer_values || ['15', '30', '45', '60'])
         .map(Number) // Convert all values to numbers
-        .filter((value) => value >= 1 && value <= 150) // Keep only values in the range of 1 and 150
-        .sort((a, b) => a - b) // Sort numerically
+        .filter((value: number) => value >= 1 && value <= 150) // Keep only values in the range of 1 and 150
+        .sort((a: number, b: number) => a - b) // Sort numerically
         .map(String) // Convert back to strings
         )],
     };
@@ -120,25 +120,28 @@ export class SwitcherBoilerCardEditor extends LitElement {
     `;
   }
 
-  _onTimerValueChanged(e) {
-    const value = e.target.value;
-    const checked = e.target.checked;
-    const currentValues = this._config.timer_values || [];
+  _onTimerValueChanged(e: Event) {
+    const target = e.target as HTMLInputElement | null;
+    const value = target?.value;
+    const checked = target?.checked ?? false;
+    const currentValues: string[] = this._config.timer_values || [];
     const updatedValues = checked
       ? [...currentValues, value]
       : currentValues.filter((v) => v !== value);
 
-    const sortedValues = updatedValues.sort((a, b) => parseInt(a) - parseInt(b));
+    const sortedValues = updatedValues
+      .filter((v): v is string => v !== undefined) // Filter out undefined values
+      .sort((a, b) => parseInt(a) - parseInt(b));
 
-    this._valueChanged({
+    this._valueChanged(new CustomEvent("value-changed", {
       detail: { value: { ...this._config, timer_values: sortedValues } },
-    });
+    }));
   }
 
-  _valueChanged = (ev) =>
+  _valueChanged = (ev: CustomEvent) =>
     fireEvent(this, "config-changed", { config: ev.detail.value });
 
-  _computeLabelCallback = (schema) => {
+  _computeLabelCallback = (schema: { name: string }) => {
     const { name } = schema;
     switch (name) {
       case "time_left":

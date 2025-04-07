@@ -1,19 +1,23 @@
 {
-  "version": "1.2.8",
-  "source": "src/index.ts",
-  "module": "dist/switcher-boiler-card.js",
+  "name": "switcher-boiler-card",
+  "version": "1.2.9-b3",
+  "description": "Custom Switcher Boiler Switch card for Home Assistant.",
   "targets": {
     "module": {
       "includeNodeModules": true
     }
   },
   "scripts": {
-    "watch": "parcel watch",
-    "build": "parcel build --no-source-maps"
+    "watch": "rollup -c --watch",
+    "build": "rollup -c"
   },
   "devDependencies": {
-    "@parcel/transformer-inline-string": "^2.13.3",
-    "parcel": "^2.13.3"
+    "@rollup/plugin-commonjs": "^28.0.2",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^16.0.0",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^12.1.2",
+    "rollup": "^4.39.0"
   },
   "dependencies": {
     "custom-card-helpers": "^1.9.0",
