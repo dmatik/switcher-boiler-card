@@ -1,5 +1,6 @@
 dist/
 .vscode
+.idea
 *.map
 # Logs
 logs
