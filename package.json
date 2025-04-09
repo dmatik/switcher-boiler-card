@@ -2,6 +2,15 @@
   "name": "switcher-boiler-card",
   "version": "1.3.1-b0",
   "description": "Custom Switcher Boiler Switch card for Home Assistant.",
+  "author": {
+    "name": "Dmitry Trosman",
+    "email": "dmatik@gmail.com",
+    "url": "https://github.com/dmatik"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dmatik/switcher-boiler-card"
+  },
   "targets": {
     "module": {
       "includeNodeModules": true
