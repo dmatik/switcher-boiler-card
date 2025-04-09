@@ -71,8 +71,8 @@ export class SwitcherBoilerCard extends LitElement {
     const iconSensorValue = parseFloat(this.hass.states[this.config.icon_sensor]?.state);
     const isIconSensor = this.config.icon_sensor && this.hass.states[this.config.icon_sensor] && !isNaN(iconSensorValue);
 
-    let iconContainerClass = "";
-    let iconSensorClass = "";
+    let iconContainerClass: string;
+    let iconSensorClass: string;
 
     if (useColorThresholds && isIconSensor) {
       if (iconSensorValue <= coldThreshold) {
