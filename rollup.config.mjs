@@ -7,6 +7,7 @@ import serve from "rollup-plugin-serve";
 
 
 const isProduction = process.env.NODE_ENV === 'production';
+const dev = process.env.ROLLUP_WATCH;
 
 const serveOptions = {
   contentBase: ["./dist"],
@@ -34,8 +35,7 @@ export default [
       nodeResolve(),
       json(),
       commonjs(),
-      terser(),
-      serve(serveOptions)
+      ...(dev ? [serve(serveOptions)] : [terser()]),
     ]
   },
 ];
