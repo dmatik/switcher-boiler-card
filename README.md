@@ -1,3 +1,4 @@
+[![hacs][hacs-badge]][hacs-url]
 [![release][release-badge]][release-url]
 
 ![alt text](https://github.com/dmatik/switcher-boiler-card/blob/main/images/Switcher_logo_200.png "Logo")
@@ -34,16 +35,18 @@ Welcome to our [Smart Home Israel](https://discord.gg/ayZ3Kkg) Discord channel t
 
 ### HACS
 
-To install from HACS you need to add this repository as custom repository first.
+Switcher Boiler Card is available in [HACS][hacs] (Home Assistant Community Store).
 
-1. Go to HACS and open 3 dots menu on the right upper corner.
-2. Select "Custom repositories" option.
-3. In the "Custom repositories" popup populate as below:
-    - **Repository:** `https://github.com/dmatik/switcher-boiler-card`
-    - **Type:** `Dashboard`
-4. Click "Add".
+Use this link to directly go to the repository in HACS
 
-Now you should be able to find "Switcher Boiler Card" in HACS store.
+[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=dmatik&repository=switcher-boiler-card)
+
+_or_
+
+1. Install HACS if you don't have it already
+2. Open HACS in Home Assistant
+3. Search for "Switcher Boiler Card"
+4. Click the download button.
 
 ### Manual
 
@@ -157,5 +160,6 @@ template:
 
 <!-- References -->
 [hacs-url]: https://github.com/hacs/integration
+[hacs]: https://hacs.xyz
 [home-assistant]: https://www.home-assistant.io/
 [release-url]: https://github.com/dmatik/switcher-boiler-card/releases
