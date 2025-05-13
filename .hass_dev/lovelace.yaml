@@ -1,0 +1,2 @@
+  mode: yaml
+  resources: !include /config/resources.yaml
