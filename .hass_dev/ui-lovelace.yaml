@@ -1,0 +1,2 @@
+views:
+  - !include /config/views/view_home.yaml
