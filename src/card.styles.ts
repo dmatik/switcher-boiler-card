@@ -191,6 +191,7 @@ export default css`
     font-size: 24px;
     transition: color 0.3s;
     --mdc-icon-size: 24px;
+    line-height: 0px;
   }
 
   .icon.on {
