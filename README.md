@@ -108,6 +108,43 @@ timer_values:
   - "60"
 ```
 
+## Development server
+
+### Home assistant container
+
+You can run a Home Assistant with docker by running:
+
+```sh
+npm run start:hass
+```
+
+Once it's done, go to Home Assistant instance [http://localhost:8123](http://localhost:8123) and start configuration.
+
+#### Windows Users
+
+```sh
+npm run start:hass-cmd
+```
+
+### Development
+
+In another terminal, install dependencies and run development server:
+
+```sh
+npm install
+npm run watch
+```
+
+Server will start on port `4000`.
+
+### Build
+
+You can build the `switcher-boiler-card.js` file in `dist` folder without server by running the build command.
+
+```sh
+npm run build
+```
+
 ## Optional
 
 ### Remaning Time Sensor
