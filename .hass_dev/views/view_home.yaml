@@ -14,7 +14,7 @@ header:
 sections:
 
   - type: grid
-    title: Switcher  
+    title: Switcher (YAML)
     cards:
 
       # Switcher

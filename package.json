@@ -20,7 +20,8 @@
     "watch": "rollup -c --watch",
     "build": "rollup -c",
     "start:hass-cmd": "powershell -NoProfile -Command \"$p = (Get-Location).Path; docker run --rm -p8123:8123 -p5683:5683/udp -p20002:20002/udp -p20003:20003/udp -p10002:10002/udp -p10003:10003/udp -v \\\"$p\\.hass_dev:/config\\\" homeassistant/home-assistant:stable\"",
-    "start:hass": "docker run --rm -p8123:8123 -p5683:5683/udp -p20002:20002/udp -p20003:20003/udp -p10002:10002/udp -p10003:10003/udp -v ./.hass_dev:/config homeassistant/home-assistant:stable"
+    "start:hass": "docker run --rm -p8123:8123 -p5683:5683/udp -p20002:20002/udp -p20003:20003/udp -p10002:10002/udp -p10003:10003/udp -v ./.hass_dev:/config homeassistant/home-assistant:stable",
+    "pull:hass": "docker pull homeassistant/home-assistant:stable"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^28.0.2",
