@@ -26,7 +26,8 @@ const SCHEMA = [
       { name: "cold_threshold", selector: { number: { min: 10, max: 80, step: 1, mode: "slider" } } },
       { name: "hot_threshold", selector: { number: { min: 10, max: 80, step: 1, mode: "slider" } } },
     ],
-  },  
+  },
+  { name: "temp_resolution", selector: { number: { min: 0, max: 2, step: 1, mode: "box" } } },
   {
     name: "timer_values",
     selector: {
@@ -157,7 +158,9 @@ export class SwitcherBoilerCardEditor extends LitElement {
       case "cold_threshold":
         return "Cold Threshold";
       case "hot_threshold":
-        return "Hot Threshold";         
+        return "Hot Threshold";
+      case "temp_resolution":
+        return "Temperature Resolution (Optional)";         
       default:
         return `${this.hass.localize(
           `ui.panel.lovelace.editor.card.generic.${name}`

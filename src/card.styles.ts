@@ -210,7 +210,7 @@ export default css`
     width: 100%;
     height: 100%;
     font-family: 'Roboto', sans-serif;
-    font-size: 15px;
+    //font-size: 15px;
     font-weight: 500;
     letter-spacing: -1px;
     line-height: 36px;
@@ -237,6 +237,16 @@ export default css`
   .icon-sensor.hot {
     color: rgb(245, 68, 54); /* Red for high temp */
   }    
+
+  .icon-sensor.resolution-0 {
+    font-size: 18px;
+  }
+  .icon-sensor.resolution-1 {
+    font-size: 15px;
+  }
+  .icon-sensor.resolution-2 {
+    font-size: 12px;
+  }  
 
   .label {
     display: flex;
