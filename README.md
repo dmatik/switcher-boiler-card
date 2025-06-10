@@ -86,6 +86,7 @@ The card can be fully configured from HA UI Editor.
 | `color_thresholds`   | temperature color thresholds for icon sensor.                                         | no                               | false                           |
 | `cold_threshold`     | Cold threshold upper limit.                                                           | no                               | 20                              |
 | `hot_threshold`      | Hot threshold lower limit.                                                            | no                               | 50                              |
+| `temp_resolution`    | Temperature resolution for decimal digits (0, 1 or 2).                                | no                               | 1                               |
 | `timer_values`       | List of values for timer in minutes (from 1 to 150).                                  | no                               | 15, 30, 45, 60                  |
 
 Example:
@@ -101,6 +102,7 @@ icon_sensor: sensor.switcher_water_temperature
 color_thresholds: true
 cold_threshold: 20
 hot_threshold: 50
+temp_resolution: 1
 timer_values:
   - "15"
   - "30"
