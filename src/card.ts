@@ -34,6 +34,7 @@ export class SwitcherBoilerCard extends LitElement {
       color_thresholds: false,
       cold_threshold: 20,
       hot_threshold: 50,
+      temp_resolution: 1,
     };
   }
 
@@ -49,6 +50,19 @@ export class SwitcherBoilerCard extends LitElement {
     if (hotThreshold <= coldThreshold) {
       throw new Error("Cold Threshold must be lower then Hot Threshold");
     }
+
+    // Validate temp_resolution
+    let tempResolution = this.config.temp_resolution;
+    if (
+      tempResolution != undefined &&
+      tempResolution != null &&
+      tempResolution != ""
+    ) {
+      tempResolution = Number(tempResolution);
+      if (isNaN(tempResolution) || ![0, 1, 2].includes(tempResolution)) {
+        throw new Error("Temperature Resolution must be a number and only 0, 1, or 2");
+      }
+    }
   }
 
   render() {
@@ -57,6 +71,8 @@ export class SwitcherBoilerCard extends LitElement {
     const useColorThresholds: boolean = this.config.color_thresholds === true;
     const coldThreshold: number = this.config.cold_threshold || 20;
     const hotThreshold: number = this.config.hot_threshold || 50;
+
+    const tempResolution: number = this.config.temp_resolution ?? 1;
 
     const entityState = this.hass?.states?.[entity];
     if (!entityState) return;
@@ -88,6 +104,14 @@ export class SwitcherBoilerCard extends LitElement {
     } else {
       iconContainerClass = isOn ? "icon-container on" : "icon-container off";
       iconSensorClass = isOn ? "icon-sensor on" : "icon-sensor off";
+    }
+
+    if(tempResolution === 0) {
+      iconSensorClass += " resolution-0";
+    } else if (tempResolution === 2) {
+      iconSensorClass += " resolution-2";
+    } else {
+      iconSensorClass += " resolution-1";
     }
 
     const iconClass = isOn ? "icon on" : "icon off";
@@ -146,7 +170,7 @@ export class SwitcherBoilerCard extends LitElement {
             <div class="${iconContainerClass}" id="icon-container">
               ${
                 isIconSensor 
-                  ? this.renderIconSensor(iconSensorClass, iconSensorValue)
+                  ? this.renderIconSensor(iconSensorClass, iconSensorValue, tempResolution)
                   : this.renderIcon(iconClass, displayIcon)
               }
             </div>
@@ -173,11 +197,18 @@ export class SwitcherBoilerCard extends LitElement {
     `;
   }
 
-  private renderIconSensor(iconSensorClass: string, iconSensorValue: number): TemplateResult  {
-    
+  private renderIconSensor(iconSensorClass: string, iconSensorValue: number, tempResolution: number): TemplateResult  {
+
+    let displayValue: string;
+    if (tempResolution === 0) {
+      displayValue = Math.round(iconSensorValue).toString();
+    } else {
+      displayValue = iconSensorValue.toFixed(tempResolution);
+    }
+
     return html`
       <span class="${iconSensorClass}" @click="${(e: MouseEvent) => this._showMoreInfo(e, this.config.icon_sensor)}">
-        ${iconSensorValue.toFixed(1)}°
+        ${displayValue}°
       </span>
     `;
   }
