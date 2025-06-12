@@ -27,7 +27,7 @@ const SCHEMA = [
       { name: "hot_threshold", selector: { number: { min: 10, max: 80, step: 1, mode: "slider" } } },
     ],
   },
-  { name: "temp_resolution", selector: { number: { min: 0, max: 2, step: 1, mode: "box" } } },
+  { name: "temp_resolution", selector: { number: { min: 0, max: 2, step: 1, mode: "slider" } } },
   {
     name: "timer_values",
     selector: {
