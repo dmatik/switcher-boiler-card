@@ -87,23 +87,28 @@ export class SwitcherBoilerCard extends LitElement {
     const iconSensorValue = parseFloat(this.hass.states[this.config.icon_sensor]?.state);
     const isIconSensor = this.config.icon_sensor && this.hass.states[this.config.icon_sensor] && !isNaN(iconSensorValue);
 
-    let iconContainerClass: string;
-    let iconSensorClass: string;
+    let iconContainerClass: string = "icon-container";
+    let iconSensorClass: string = "icon-sensor";
 
     if (useColorThresholds && isIconSensor) {
       if (iconSensorValue <= coldThreshold) {
-        iconContainerClass = "icon-container cold";
-        iconSensorClass = "icon-sensor cold";
+        iconContainerClass += " cold";
+        iconSensorClass += " cold";
       } else if (iconSensorValue > coldThreshold && iconSensorValue <= hotThreshold) {
-        iconContainerClass = "icon-container warm";
-        iconSensorClass = "icon-sensor warm";
+        iconContainerClass += " warm";
+        iconSensorClass += " warm";
       } else {
-        iconContainerClass = "icon-container hot";
-        iconSensorClass = "icon-sensor hot";
+        iconContainerClass += " hot";
+        iconSensorClass += " hot";
       }
     } else {
-      iconContainerClass = isOn ? "icon-container on" : "icon-container off";
-      iconSensorClass = isOn ? "icon-sensor on" : "icon-sensor off";
+      if (isOn) {
+        iconContainerClass += " on";
+        iconSensorClass += " on";
+      } else {
+        iconContainerClass += " off";
+        iconSensorClass += " off";
+      }
     }
 
     if(tempResolution === 0) {
