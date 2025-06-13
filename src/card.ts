@@ -1,10 +1,9 @@
-import { html, LitElement, TemplateResult } from 'lit';
+import { html, LitElement, TemplateResult } from "lit";
 import { property, state } from "lit/decorators.js";
-import styles from './card.styles';
+import styles from "./card.styles";
 import { HomeAssistant, LovelaceCardConfig } from "custom-card-helpers";
 
 export class SwitcherBoilerCard extends LitElement {
-
   @state() timerValue: string;
 
   @property({ attribute: false }) hass!: HomeAssistant;
@@ -14,7 +13,7 @@ export class SwitcherBoilerCard extends LitElement {
 
   constructor() {
     super();
-    this.timerValue = '15';
+    this.timerValue = "15";
   }
 
   static getConfigElement() {
@@ -43,7 +42,9 @@ export class SwitcherBoilerCard extends LitElement {
       throw new Error("You need to define an entity");
     }
     this.config = config;
-    this.timerValue = this.config.timer_values? this.config.timer_values[0] : '15';
+    this.timerValue = this.config.timer_values
+      ? this.config.timer_values[0]
+      : "15";
 
     const coldThreshold: number = this.config.cold_threshold;
     const hotThreshold: number = this.config.hot_threshold;
@@ -60,7 +61,9 @@ export class SwitcherBoilerCard extends LitElement {
     ) {
       tempResolution = Number(tempResolution);
       if (isNaN(tempResolution) || ![0, 1, 2].includes(tempResolution)) {
-        throw new Error("Temperature Resolution must be a number and only 0, 1, or 2");
+        throw new Error(
+          "Temperature Resolution must be a number and only 0, 1, or 2"
+        );
       }
     }
   }
@@ -77,15 +80,21 @@ export class SwitcherBoilerCard extends LitElement {
     const entityState = this.hass?.states?.[entity];
     if (!entityState) return;
 
-    const friendlyName = entityState?.attributes?.friendly_name || "Unknown Entity";
+    const friendlyName =
+      entityState?.attributes?.friendly_name || "Unknown Entity";
     const displayName = name || friendlyName || "Boiler";
     const stateValue = entityState?.state || "Unavailable";
 
     const displayIcon = icon || entityState?.attributes?.icon || "mdi:waves";
 
-    const isOn = stateValue === "on"; 
-    const iconSensorValue = parseFloat(this.hass.states[this.config.icon_sensor]?.state);
-    const isIconSensor = this.config.icon_sensor && this.hass.states[this.config.icon_sensor] && !isNaN(iconSensorValue);
+    const isOn = stateValue === "on";
+    const iconSensorValue = parseFloat(
+      this.hass.states[this.config.icon_sensor]?.state
+    );
+    const isIconSensor =
+      this.config.icon_sensor &&
+      this.hass.states[this.config.icon_sensor] &&
+      !isNaN(iconSensorValue);
 
     let iconContainerClass: string = "icon-container";
     let iconSensorClass: string = "icon-sensor";
@@ -94,7 +103,10 @@ export class SwitcherBoilerCard extends LitElement {
       if (iconSensorValue <= coldThreshold) {
         iconContainerClass += " cold";
         iconSensorClass += " cold";
-      } else if (iconSensorValue > coldThreshold && iconSensorValue <= hotThreshold) {
+      } else if (
+        iconSensorValue > coldThreshold &&
+        iconSensorValue <= hotThreshold
+      ) {
         iconContainerClass += " warm";
         iconSensorClass += " warm";
       } else {
@@ -111,7 +123,7 @@ export class SwitcherBoilerCard extends LitElement {
       }
     }
 
-    if(tempResolution === 0) {
+    if (tempResolution === 0) {
       iconSensorClass += " resolution-0";
     } else if (tempResolution === 2) {
       iconSensorClass += " resolution-2";
@@ -124,42 +136,102 @@ export class SwitcherBoilerCard extends LitElement {
     let displayState = "";
 
     if (isOn) {
-      if (this.config.time_left && !this.config.sensor_1 && !this.config.sensor_2) {
+      if (
+        this.config.time_left &&
+        !this.config.sensor_1 &&
+        !this.config.sensor_2
+      ) {
         displayState = this.hass.states[this.config.time_left].state;
       }
-      if (this.config.time_left && !this.config.sensor_1 && this.config.sensor_2) {
-        displayState = this.hass.states[this.config.time_left].state
-          + " • " + this.hass.states[this.config.sensor_2].state + this.hass.states[this.config.sensor_2].attributes.unit_of_measurement;
+      if (
+        this.config.time_left &&
+        !this.config.sensor_1 &&
+        this.config.sensor_2
+      ) {
+        displayState =
+          this.hass.states[this.config.time_left].state +
+          " • " +
+          this.hass.states[this.config.sensor_2].state +
+          this.hass.states[this.config.sensor_2].attributes.unit_of_measurement;
       }
-      if (this.config.time_left && this.config.sensor_1 && !this.config.sensor_2) {
-        displayState = this.hass.states[this.config.time_left].state
-          + " • " + this.hass.states[this.config.sensor_1].state + this.hass.states[this.config.sensor_1].attributes.unit_of_measurement;
+      if (
+        this.config.time_left &&
+        this.config.sensor_1 &&
+        !this.config.sensor_2
+      ) {
+        displayState =
+          this.hass.states[this.config.time_left].state +
+          " • " +
+          this.hass.states[this.config.sensor_1].state +
+          this.hass.states[this.config.sensor_1].attributes.unit_of_measurement;
       }
-      if (this.config.time_left && this.config.sensor_1 && this.config.sensor_2) {
-        displayState = this.hass.states[this.config.time_left].state
-          + " • " + this.hass.states[this.config.sensor_1].state + this.hass.states[this.config.sensor_1].attributes.unit_of_measurement
-          + " • " + this.hass.states[this.config.sensor_2].state + this.hass.states[this.config.sensor_2].attributes.unit_of_measurement;
+      if (
+        this.config.time_left &&
+        this.config.sensor_1 &&
+        this.config.sensor_2
+      ) {
+        displayState =
+          this.hass.states[this.config.time_left].state +
+          " • " +
+          this.hass.states[this.config.sensor_1].state +
+          this.hass.states[this.config.sensor_1].attributes
+            .unit_of_measurement +
+          " • " +
+          this.hass.states[this.config.sensor_2].state +
+          this.hass.states[this.config.sensor_2].attributes.unit_of_measurement;
       }
-      if (!this.config.time_left && this.config.sensor_1 && this.config.sensor_2) {
-        displayState = this.hass.states[this.config.sensor_1].state + this.hass.states[this.config.sensor_1].attributes.unit_of_measurement
-          + " • " + this.hass.states[this.config.sensor_2].state + this.hass.states[this.config.sensor_2].attributes.unit_of_measurement;
+      if (
+        !this.config.time_left &&
+        this.config.sensor_1 &&
+        this.config.sensor_2
+      ) {
+        displayState =
+          this.hass.states[this.config.sensor_1].state +
+          this.hass.states[this.config.sensor_1].attributes
+            .unit_of_measurement +
+          " • " +
+          this.hass.states[this.config.sensor_2].state +
+          this.hass.states[this.config.sensor_2].attributes.unit_of_measurement;
       }
-      if (!this.config.time_left && !this.config.sensor_1 && this.config.sensor_2) {
-        displayState = this.hass.states[this.config.sensor_2].state + this.hass.states[this.config.sensor_2].attributes.unit_of_measurement;
+      if (
+        !this.config.time_left &&
+        !this.config.sensor_1 &&
+        this.config.sensor_2
+      ) {
+        displayState =
+          this.hass.states[this.config.sensor_2].state +
+          this.hass.states[this.config.sensor_2].attributes.unit_of_measurement;
       }
-      if (!this.config.time_left && this.config.sensor_1 && !this.config.sensor_2) {
-        displayState = this.hass.states[this.config.sensor_1].state + this.hass.states[this.config.sensor_1].attributes.unit_of_measurement;
+      if (
+        !this.config.time_left &&
+        this.config.sensor_1 &&
+        !this.config.sensor_2
+      ) {
+        displayState =
+          this.hass.states[this.config.sensor_1].state +
+          this.hass.states[this.config.sensor_1].attributes.unit_of_measurement;
       }
-      if (!this.config.time_left && !this.config.sensor_1 && !this.config.sensor_2) {
-        displayState = this.hass.localize(`component.switch.entity_component._.state.on`) || "on";
+      if (
+        !this.config.time_left &&
+        !this.config.sensor_1 &&
+        !this.config.sensor_2
+      ) {
+        displayState =
+          this.hass.localize(`component.switch.entity_component._.state.on`) ||
+          "on";
       }
     } else {
       if (this.config.sensor_2) {
-        displayState = this.hass.localize(`component.switch.entity_component._.state.off`) || "off";
+        displayState =
+          this.hass.localize(`component.switch.entity_component._.state.off`) ||
+          "off";
         displayState += " • " + this.hass.states[this.config.sensor_2].state;
-        displayState += this.hass.states[this.config.sensor_2].attributes.unit_of_measurement;
+        displayState +=
+          this.hass.states[this.config.sensor_2].attributes.unit_of_measurement;
       } else {
-        displayState = this.hass.localize(`component.switch.entity_component._.state.off`) || "off";
+        displayState =
+          this.hass.localize(`component.switch.entity_component._.state.off`) ||
+          "off";
       }
     }
 
@@ -171,13 +243,19 @@ export class SwitcherBoilerCard extends LitElement {
     return html`
       <ha-card class="card" id="card">
         <div class="container">
-          <div class="content" @click="${(e: MouseEvent) => this._showMoreInfo(e, this.config.entity)}">
+          <div
+            class="content"
+            @click="${(e: MouseEvent) =>
+              this._showMoreInfo(e, this.config.entity)}"
+          >
             <div class="${iconContainerClass}" id="icon-container">
-              ${
-                isIconSensor 
-                  ? this.renderIconSensor(iconSensorClass, iconSensorValue, tempResolution)
-                  : this.renderIcon(iconClass, displayIcon)
-              }
+              ${isIconSensor
+                ? this.renderIconSensor(
+                    iconSensorClass,
+                    iconSensorValue,
+                    tempResolution
+                  )
+                : this.renderIcon(iconClass, displayIcon)}
             </div>
             <div class="label">
               <span class="primary" id="name">${displayName}</span>
@@ -186,13 +264,25 @@ export class SwitcherBoilerCard extends LitElement {
           </div>
           <div class="controls">
             <div class="buttons-group">
-              <button class="${powerButtonClass}" @click="${this._toggleBoiler}">
+              <button
+                class="${powerButtonClass}"
+                @click="${this._toggleBoiler}"
+              >
                 <ha-icon icon="mdi:power" class="button_icon power"></ha-icon>
               </button>
-              <button class="${buttonClass} timer" @click=${this._turnOnBoilerWithTimer}>
-                <ha-icon icon="mdi:timer-outline" class="button_icon timer"></ha-icon>
+              <button
+                class="${buttonClass} timer"
+                @click=${this._turnOnBoilerWithTimer}
+              >
+                <ha-icon
+                  icon="mdi:timer-outline"
+                  class="button_icon timer"
+                ></ha-icon>
               </button>
-              <button class="${buttonClass} timer_time" @click=${this._cycleTimerValue}>
+              <button
+                class="${buttonClass} timer_time"
+                @click=${this._cycleTimerValue}
+              >
                 ${this.timerValue}
               </button>
             </div>
@@ -202,8 +292,11 @@ export class SwitcherBoilerCard extends LitElement {
     `;
   }
 
-  private renderIconSensor(iconSensorClass: string, iconSensorValue: number, tempResolution: number): TemplateResult  {
-
+  private renderIconSensor(
+    iconSensorClass: string,
+    iconSensorValue: number,
+    tempResolution: number
+  ): TemplateResult {
     let displayValue: string;
     if (tempResolution === 0) {
       displayValue = Math.round(iconSensorValue).toString();
@@ -212,35 +305,41 @@ export class SwitcherBoilerCard extends LitElement {
     }
 
     return html`
-      <span class="${iconSensorClass}" @click="${(e: MouseEvent) => this._showMoreInfo(e, this.config.icon_sensor)}">
+      <span
+        class="${iconSensorClass}"
+        @click="${(e: MouseEvent) =>
+          this._showMoreInfo(e, this.config.icon_sensor)}"
+      >
         ${displayValue}°
       </span>
     `;
   }
 
-  private renderIcon(iconClass: string, displayIcon: string): TemplateResult  {
-    
+  private renderIcon(iconClass: string, displayIcon: string): TemplateResult {
     return html`
       <ha-icon icon="${displayIcon}" class="${iconClass}" id="icon"></ha-icon>
     `;
-  }  
+  }
 
   private _toggleBoiler(event: MouseEvent): void {
     event.stopPropagation();
     event.preventDefault();
-  
+
     const entityId: string = this.config.entity;
     this.hass.callService("homeassistant", "toggle", { entity_id: entityId });
-  
+
     this._rippleEffect(event);
-  }  
+  }
 
   private _turnOnBoilerWithTimer(event: MouseEvent): void {
     event.stopPropagation();
     event.preventDefault();
 
     const entityId = this.config.entity;
-    this.hass.callService("switcher_kis", "turn_on_with_timer", { entity_id: entityId, timer_minutes: this.timerValue });
+    this.hass.callService("switcher_kis", "turn_on_with_timer", {
+      entity_id: entityId,
+      timer_minutes: this.timerValue,
+    });
 
     this._rippleEffect(event);
   }
@@ -250,12 +349,22 @@ export class SwitcherBoilerCard extends LitElement {
     event.preventDefault();
 
     // Create a unique, sorted array, filter values, and convert back to strings
-    const timerValues: string[] = [...new Set((this.config.timer_values as string[] | number[] || ['15', '30', '45', '60'])
-      .map(Number) // Convert all values to numbers
-      .filter((value) => value >= 1 && value <= 150) // Keep only values in the range of 1 and 150
-      .sort((a, b) => a - b) // Sort numerically
-      .map(String) // Convert back to strings
-      )];
+    const timerValues: string[] = [
+      ...new Set(
+        (
+          (this.config.timer_values as string[] | number[]) || [
+            "15",
+            "30",
+            "45",
+            "60",
+          ]
+        )
+          .map(Number) // Convert all values to numbers
+          .filter((value) => value >= 1 && value <= 150) // Keep only values in the range of 1 and 150
+          .sort((a, b) => a - b) // Sort numerically
+          .map(String) // Convert back to strings
+      ),
+    ];
     const currentIndex = timerValues.indexOf(this.timerValue);
 
     // Fallback to the first value if currentValue is not in the array
@@ -270,42 +379,42 @@ export class SwitcherBoilerCard extends LitElement {
   private _rippleEffect(event: MouseEvent): void {
     const button = event.currentTarget as HTMLElement | null;
     if (!button) return;
-  
+
     // Create ripple element
     const ripple = document.createElement("span");
     ripple.classList.add("ripple");
-  
+
     // Get click position
     const rect = button.getBoundingClientRect();
     const size = Math.max(rect.width, rect.height);
     const x = event.clientX - rect.left - size / 2;
     const y = event.clientY - rect.top - size / 2;
-  
+
     // Style ripple element
     ripple.style.width = ripple.style.height = `${size}px`;
     ripple.style.left = `${x}px`;
     ripple.style.top = `${y}px`;
-  
+
     // Append ripple and remove after animation
     button.appendChild(ripple);
     setTimeout(() => ripple.remove(), 1000); // Matches animation duration
-  }  
+  }
 
   private _showMoreInfo(event: Event, entityId: string): void {
     event.stopPropagation();
     event.preventDefault();
-  
+
     if (!entityId) return;
-  
+
     const moreInfoEvent = new CustomEvent("hass-more-info", {
       bubbles: true,
       cancelable: true,
       composed: true,
       detail: { entityId },
     });
-  
+
     this.dispatchEvent(moreInfoEvent);
-  }  
+  }
 
   private isDarkTheme(): boolean {
     return (this.hass.themes as any).darkMode ?? false;
@@ -322,7 +431,7 @@ export class SwitcherBoilerCard extends LitElement {
       grid_min_rows: 2,
       grid_max_rows: 2,
       grid_min_columns: 2,
-      grid_max_columns: 4
+      grid_max_columns: 4,
     };
   }
 }
