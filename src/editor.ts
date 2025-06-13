@@ -1,8 +1,7 @@
-import { html, LitElement } from 'lit';
+import { html, LitElement } from "lit";
 import { state } from "lit/decorators.js";
-import styles from './editor.styles';
+import styles from "./editor.styles";
 import { HomeAssistant, LovelaceCardConfig } from "custom-card-helpers";
-
 
 const SCHEMA = [
   { name: "entity", selector: { entity: { domain: ["switch"] } } },
@@ -11,32 +10,38 @@ const SCHEMA = [
   { name: "time_left", selector: { entity: { domain: ["sensor"] } } },
   { name: "sensor_1", selector: { entity: { domain: ["sensor"] } } },
   { name: "sensor_2", selector: { entity: { domain: ["sensor"] } } },
+  { name: "icon_sensor", selector: { entity: { domain: ["sensor"] } } },
+  { name: "color_thresholds", selector: { boolean: {} } },
   {
     type: "grid",
     name: "",
     schema: [
-      { name: "icon_sensor", selector: { entity: { domain: ["sensor"] } } },
-      { name: "color_thresholds", selector: { boolean: {} } },
+      {
+        name: "cold_threshold",
+        selector: { number: { min: 10, max: 80, step: 1, mode: "slider" } },
+      },
+      {
+        name: "hot_threshold",
+        selector: { number: { min: 10, max: 80, step: 1, mode: "slider" } },
+      },
     ],
   },
   {
-    type: "grid",
-    name: "",
-    schema: [
-      { name: "cold_threshold", selector: { number: { min: 10, max: 80, step: 1, mode: "slider" } } },
-      { name: "hot_threshold", selector: { number: { min: 10, max: 80, step: 1, mode: "slider" } } },
-    ],
+    name: "temp_resolution",
+    selector: { number: { min: 0, max: 2, step: 1, mode: "slider" } },
   },
-  { name: "temp_resolution", selector: { number: { min: 0, max: 2, step: 1, mode: "slider" } } },
   {
     name: "timer_values",
-    selector: {
-
-    },
-  }
+    selector: {},
+  },
 ];
 
-const fireEvent = (node: HTMLElement, type: string, detail: any, options: { bubbles?: boolean; cancelable?: boolean; composed?: boolean } = {}): CustomEvent => {
+const fireEvent = (
+  node: HTMLElement,
+  type: string,
+  detail: any,
+  options: { bubbles?: boolean; cancelable?: boolean; composed?: boolean } = {}
+): CustomEvent => {
   const event = new CustomEvent(type, {
     bubbles: options.bubbles === undefined ? true : options.bubbles,
     cancelable: Boolean(options.cancelable),
@@ -49,7 +54,6 @@ const fireEvent = (node: HTMLElement, type: string, detail: any, options: { bubb
 };
 
 export class SwitcherBoilerCardEditor extends LitElement {
-
   @state() _config: LovelaceCardConfig = {} as LovelaceCardConfig;
 
   private hass!: HomeAssistant;
@@ -59,12 +63,15 @@ export class SwitcherBoilerCardEditor extends LitElement {
   setConfig(config: LovelaceCardConfig) {
     this._config = {
       ...config,
-      timer_values: [...new Set((config.timer_values || ['15', '30', '45', '60'])
-        .map(Number) // Convert all values to numbers
-        .filter((value: number) => value >= 1 && value <= 150) // Keep only values in the range of 1 and 150
-        .sort((a: number, b: number) => a - b) // Sort numerically
-        .map(String) // Convert back to strings
-        )],
+      timer_values: [
+        ...new Set(
+          (config.timer_values || ["15", "30", "45", "60"])
+            .map(Number) // Convert all values to numbers
+            .filter((value: number) => value >= 1 && value <= 150) // Keep only values in the range of 1 and 150
+            .sort((a: number, b: number) => a - b) // Sort numerically
+            .map(String) // Convert back to strings
+        ),
+      ],
     };
   }
 
@@ -77,7 +84,32 @@ export class SwitcherBoilerCardEditor extends LitElement {
       <ha-form
         .hass=${this.hass}
         .data=${this._config}
-        .schema=${SCHEMA.filter((field) => field.name !== "timer_values")}
+        .schema=${SCHEMA.filter((field) => {
+          if (
+            field.name === "temp_resolution" ||
+            field.name === "color_thresholds"
+          ) {
+            return !!this._config.icon_sensor;
+          }
+
+          // Match the unnamed grid that contains cold_threshold and hot_threshold
+          if (
+            field.type === "grid" &&
+            Array.isArray(field.schema) &&
+            field.schema.some((f) => f.name === "cold_threshold") &&
+            field.schema.some((f) => f.name === "hot_threshold")
+          ) {
+            return (
+              !!this._config.icon_sensor && !!this._config.color_thresholds
+            );
+          }
+
+          if (field.name === "timer_values") {
+            return false;
+          }
+
+          return true;
+        })}
         .computeLabel=${this._computeLabelCallback}
         @value-changed=${this._valueChanged}
       ></ha-form>
@@ -134,9 +166,11 @@ export class SwitcherBoilerCardEditor extends LitElement {
       .filter((v): v is string => v !== undefined) // Filter out undefined values
       .sort((a, b) => parseInt(a) - parseInt(b));
 
-    this._valueChanged(new CustomEvent("value-changed", {
-      detail: { value: { ...this._config, timer_values: sortedValues } },
-    }));
+    this._valueChanged(
+      new CustomEvent("value-changed", {
+        detail: { value: { ...this._config, timer_values: sortedValues } },
+      })
+    );
   }
 
   _valueChanged = (ev: CustomEvent) =>
@@ -160,7 +194,7 @@ export class SwitcherBoilerCardEditor extends LitElement {
       case "hot_threshold":
         return "Hot Threshold";
       case "temp_resolution":
-        return "Temperature Resolution (Optional)";         
+        return "Temperature Resolution (Optional)";
       default:
         return `${this.hass.localize(
           `ui.panel.lovelace.editor.card.generic.${name}`
